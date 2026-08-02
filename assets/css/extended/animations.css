@@ -1,0 +1,91 @@
+/* ============================================
+   Animations — Minimal, Purposeful
+   Restraint: one signature element, everything else quiet
+   ============================================ */
+
+/* ---- Keyframes ---- */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ---- Page Load — subtle, quick ---- */
+
+.header {
+    animation: fadeIn 0.4s ease both;
+}
+
+.main {
+    animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+/* ---- Top Link Button ---- */
+
+.top-link {
+    transition: opacity var(--transition-normal),
+                transform var(--transition-normal),
+                visibility var(--transition-normal);
+    border-radius: 50%;
+    background: var(--entry);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-link:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.top-link:hover svg {
+    color: #fff;
+}
+
+.top-link.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* ---- Theme Toggle ---- */
+
+.theme-toggle svg {
+    transition: transform var(--transition-normal);
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(20deg);
+}
+
+/* ---- prefers-reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

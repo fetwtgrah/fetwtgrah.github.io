@@ -1,0 +1,49 @@
+/* ============================================
+   Footer — Minimal, Clean
+   ============================================ */
+
+.footer {
+    padding: 2.5rem var(--gap);
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--secondary);
+    border-top: 1px solid var(--border);
+    background: transparent;
+}
+
+.footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer a {
+    color: var(--secondary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+}
+
+.footer a:hover {
+    color: var(--accent);
+}
+
+.footer-sep {
+    color: var(--tertiary);
+    margin: 0 0.3rem;
+}
+
+.footer-tagline {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--tertiary);
+}
+
+.footer-tagline span {
+    display: inline-block;
+}

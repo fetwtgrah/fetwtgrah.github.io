@@ -1,0 +1,51 @@
+{{- /* Head custom content — theme init + reading progress */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+{{- /* Theme init — prevent flash of wrong theme */ -}}
+<script>
+(function() {
+    var stored = localStorage.getItem("pref-theme");
+    if (stored === 'dark' || stored === 'light') {
+        document.documentElement.dataset.theme = stored;
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.dataset.theme = 'dark';
+    } else {
+        document.documentElement.dataset.theme = 'light';
+    }
+})();
+</script>
+
+{{- if or .Params.math .Site.Params.math }}
+{{ partialCached "math.html" . }}
+{{- end }}
+
+{{- /* Reading progress bar — only on single post pages */ -}}
+{{- if and (eq .Kind "page") (eq .Type "posts") }}
+<style>
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2.5px;
+    background: var(--accent);
+    z-index: 101;
+    width: 0%;
+    border-radius: 0 1px 1px 0;
+    transition: width 0.15s linear;
+}
+</style>
+<script>
+(function() {
+    var bar = document.createElement('div');
+    bar.className = 'reading-progress';
+    document.body.appendChild(bar);
+    window.addEventListener('scroll', function() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = Math.min(progress, 100) + '%';
+    }, {passive: true});
+})();
+</script>
+{{- end }}

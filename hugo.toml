@@ -1,40 +1,68 @@
 baseURL = "https://fetwtgrah.github.io/"
 languageCode = "zh-cn"
+locale = "zh-cn"
 title = "Fresh的博客"
 
 theme = "PaperMod"
 
+# Enable custom CSS from assets/css/extended/
+# PaperMod auto-loads all .css files from this directory
+
+[markup.goldmark.renderer]
+  unsafe = true
+
 [menu]
 
 [[menu.main]]
-name = "文章"
+name = "~/posts"
 url = "/posts/"
 weight = 1
 
 [[menu.main]]
-name = "关于"
-url = "/about/"
+name = "~/tags"
+url = "/tags/"
 weight = 2
+
+[[menu.main]]
+name = "~/projects"
+url = "/projects/"
+weight = 3
+
+[[menu.main]]
+name = "~/about"
+url = "/about/"
+weight = 4
 
 [params]
   defaultTheme = "auto"
+  disableThemeToggle = false
 
+  # Post display
   ShowReadingTime = true
-  ShowShareButtons = true
+  ShowShareButtons = false
   ShowCodeCopyButtons = true
-
   ShowPostNavLinks = true
-  ShowBreadCrumbs = true
+  ShowBreadCrumbs = false
+  ShowWordCount = true
+  ShowToc = true
+
+  # Social
+  socialIcons = [
+    { name = "github", url = "https://github.com/fetwtgrah" },
+  ]
+
+  # Label / Logo — terminal style
+  [params.label]
+    text = "~/Fresh"
+
+  # Footer
+  [params.footer]
+    hideCopyright = false
+    text = "built with Hugo · deployed on GitHub Pages"
 
 [params.homeInfoParams]
-  Title = "Hi there 👋"
+  Title = "Hi, I'm Fresh"
+  Subtitle = "Software Engineering Student · Go Backend · Open Source"
   Content = """
-记录我的技术学习过程：
-
-- Go
-- Gin
-- PostgreSQL
-- Docker
-- AI
-"""
+  """
 

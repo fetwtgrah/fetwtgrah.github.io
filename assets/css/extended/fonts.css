@@ -1,0 +1,67 @@
+/* ============================================
+   Font System
+   Display: Space Grotesk (geometric, tech feel)
+   Body: Inter + Noto Sans SC
+   Mono: JetBrains Mono
+   Reference: ui-ux-pro-max typography pairing
+   ============================================ */
+
+/* Space Grotesk — geometric display for headings */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* Inter — body text */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* Noto Sans SC — Chinese body text */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+/* JetBrains Mono — code */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+    --font-display: 'Space Grotesk', 'Inter', 'PingFang SC', system-ui, sans-serif;
+    --font-body: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+}
+
+body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Headings use Space Grotesk */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; }
+h2 { font-size: 1.65rem; font-weight: 600; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+h4 { font-size: 1.1rem; font-weight: 600; }
+
+/* Code */
+code, pre, kbd, samp {
+    font-family: var(--font-mono);
+}
+
+pre code {
+    font-size: 0.875rem;
+    line-height: 1.65;
+}
+
+/* Inline code */
+:not(pre) > code {
+    background: var(--code-bg);
+    color: var(--accent);
+    padding: 0.15em 0.45em;
+    border-radius: var(--radius-xs);
+    font-size: 0.875em;
+    font-weight: 500;
+    border: 1px solid var(--border);
+}

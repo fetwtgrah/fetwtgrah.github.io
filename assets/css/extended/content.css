@@ -1,0 +1,304 @@
+/* ============================================
+   Content / Single Post Styling
+   Enhanced reading experience + code blocks
+   ============================================ */
+
+/* ---- Post body ---- */
+.post-content {
+    font-size: 1.02rem;
+    line-height: 1.82;
+    color: var(--content);
+}
+
+/* ============================================
+   Post Header Meta — Tags + Reading Info
+   ============================================ */
+
+.post-header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.8rem 0 1.5rem;
+    font-size: 0.88rem;
+    color: var(--secondary);
+}
+
+.post-header-meta .post-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.post-header-meta .post-tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.post-header-meta .post-tags a {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.18em 0.7em;
+    border-radius: 99px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.post-header-meta .post-tags a:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.post-header-meta .post-meta-sep {
+    color: var(--tertiary);
+}
+
+/* ============================================
+   Reading Progress Bar (top of page)
+   ============================================ */
+
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2.5px;
+    background: var(--accent);
+    z-index: 100;
+    width: 0%;
+    transition: width 0.15s linear;
+    border-radius: 0 1px 1px 0;
+}
+
+/* ============================================
+   Headings — Hierarchy with Accent
+   ============================================ */
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    margin-top: 2.2rem;
+    margin-bottom: 0.9rem;
+    position: relative;
+}
+
+/* H2: subtle left accent line */
+.post-content h2 {
+    padding-left: 0.8rem;
+    border-left: 3px solid var(--accent);
+}
+
+/* H3: clean with optional anchor */
+.post-content h3 {
+    font-weight: 600;
+}
+
+.post-content h3::before {
+    content: '';
+    display: none;
+}
+
+/* Heading anchor hover */
+.post-content h2:hover .anchor,
+.post-content h3:hover .anchor {
+    opacity: 1;
+    color: var(--accent);
+}
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+
+/* Code block wrapper */
+.post-content .highlight,
+.post-content pre {
+    background: var(--code-block-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Code block header — filename/language label */
+.post-content .highlight::before {
+    content: attr(data-lang);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--secondary);
+    padding: 0.5rem 1rem;
+    background: color-mix(in srgb, var(--code-block-bg) 95%, var(--border));
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.post-content pre {
+    padding: 1.2rem;
+    overflow-x: auto;
+}
+
+.post-content pre code {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: #E4E4E7;
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+/* Inline code within post content */
+.post-content :not(pre) > code {
+    background: var(--code-bg);
+    color: var(--accent);
+    padding: 0.15em 0.45em;
+    border-radius: var(--radius-xs);
+    font-size: 0.875em;
+    font-weight: 500;
+    border: 1px solid var(--border);
+}
+
+/* Copy code button */
+.copy-code {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: var(--radius-xs);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--secondary);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.copy-code:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* ============================================
+   Blockquote
+   ============================================ */
+
+.post-content blockquote {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-light);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.9rem 1.3rem;
+    margin: 1.5rem 0;
+    color: var(--secondary);
+    font-style: normal;
+}
+
+.post-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   Images
+   ============================================ */
+
+.post-content img {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+
+.post-content table {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.post-content th {
+    background: var(--primary);
+    color: var(--theme);
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+.post-content th,
+.post-content td {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.post-content tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================
+   Horizontal Rule
+   ============================================ */
+
+.post-content hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 2.5rem 0;
+}
+
+/* ============================================
+   Post Navigation
+   ============================================ */
+
+.post-nav-links {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ============================================
+   TOC (Table of Contents)
+   ============================================ */
+
+.toc {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.toc details summary {
+    font-family: var(--font-display);
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.toc ul {
+    margin-top: 0.6rem;
+    padding-left: 1.2rem;
+}
+
+.toc a {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.toc a:hover {
+    color: var(--accent);
+}

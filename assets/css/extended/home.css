@@ -1,0 +1,379 @@
+/* ============================================
+   Home Page — Developer Portfolio Layout
+   README-style hero + tech cards + posts + projects
+   ============================================ */
+
+/* ---- Home container: wider than article pages ---- */
+.home-container {
+    max-width: var(--home-width);
+    margin: 0 auto;
+    padding: 0 var(--gap);
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+
+.hero {
+    padding: 4rem 0 2.5rem;
+    text-align: left;
+}
+
+.hero-greeting {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0;
+    margin-bottom: 0.6rem;
+}
+
+.hero h1 {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    margin: 0 0 0.75rem;
+    color: var(--primary);
+}
+
+.hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--secondary);
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+    max-width: 560px;
+}
+
+/* CTA buttons */
+.hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    background: var(--entry);
+    box-shadow: var(--shadow-sm);
+}
+
+.hero-actions .btn:hover {
+    border-color: var(--accent-mid);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.hero-actions .btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.hero-actions .btn-primary {
+    background: var(--accent);
+    color: #FFFFFF;
+    border-color: var(--accent);
+}
+
+.hero-actions .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #FFFFFF;
+}
+
+/* ============================================
+   Section Headers — terminal .md style
+   ============================================ */
+
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary);
+    letter-spacing: 0;
+    text-transform: none;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.section-label::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   Tech Stack Cards Grid
+   ============================================ */
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .tech-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tech-card {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--transition-fast),
+                box-shadow var(--transition-fast);
+}
+
+.tech-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: var(--shadow-md);
+}
+
+.tech-card-header {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+}
+
+.tech-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tech-tag {
+    display: inline-block;
+    background: var(--code-bg);
+    color: var(--primary);
+    padding: 0.25em 0.65em;
+    border-radius: var(--radius-xs);
+    font-size: 0.82rem;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    transition: all var(--transition-fast);
+}
+
+.tech-tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ============================================
+   Latest Posts Section
+   ============================================ */
+
+.posts-mini {
+    margin-bottom: 2.5rem;
+}
+
+.posts-mini .post-entry {
+    /* Inherit existing post-entry styles, just used in a different context */
+}
+
+.posts-mini-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--secondary);
+    text-decoration: none;
+    margin-top: 0.75rem;
+    transition: color var(--transition-fast);
+}
+
+.posts-mini-link:hover {
+    color: var(--accent);
+}
+
+.posts-mini-link::before {
+    content: '→ ';
+}
+
+/* ============================================
+   Projects Section
+   ============================================ */
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-card {
+    background: var(--entry);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.3rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
+
+.project-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.project-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-card-header svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.project-card-name {
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.project-card-desc {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    line-height: 1.5;
+    margin: 0.35rem 0 0.7rem;
+}
+
+.project-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.project-card-meta span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.2em 0.55em;
+    border-radius: 99px;
+}
+
+/* ============================================
+   Home Hero Override — PaperMod first-entry
+   ============================================ */
+
+.first-entry {
+    min-height: auto;
+    margin: 0 0 2.5rem 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.first-entry .entry-header h1 {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    background: none;
+    -webkit-text-fill-color: var(--primary);
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.first-entry .entry-content {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--secondary);
+    max-width: 560px;
+}
+
+.first-entry .entry-footer {
+    margin-top: 1.2rem;
+}
+
+.first-entry .entry-footer .social-icons svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 2.5rem 0 1.5rem;
+    }
+
+    .hero h1,
+    .first-entry .entry-header h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle,
+    .first-entry .entry-content {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1,
+    .first-entry .entry-header h1 {
+        font-size: 1.65rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        justify-content: center;
+    }
+}

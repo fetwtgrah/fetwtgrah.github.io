@@ -1,0 +1,92 @@
+/* ============================================
+   Theme Variables — Swiss Modernism 2.0
+   Monochrome zinc scale + classic developer blue
+   Reference: ui-ux-pro-max design system
+   ============================================ */
+
+:root {
+    /* Accent — developer blue */
+    --accent: #2563EB;
+    --accent-hover: #1D4ED8;
+    --accent-light: rgba(37, 99, 235, 0.08);
+    --accent-mid: rgba(37, 99, 235, 0.16);
+
+    /* Layout tokens */
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+    --content-gap: 20px;
+    --nav-width: 1024px;
+    --main-width: 720px;
+    --home-width: 860px;
+
+    /* Shadows — subtle, barely-there */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    /* Transitions */
+    --transition-fast: 0.18s ease;
+    --transition-normal: 0.28s ease;
+
+    /* ======== Light Theme ======== */
+    --theme: #F5F3F0;        /* warm ivory — less sterile than plain white */
+    --entry: #FFFFFF;        /* pure white cards */
+    --primary: #18181B;      /* zinc-900 */
+    --secondary: #71717A;    /* zinc-500 */
+    --tertiary: #D4D4D8;     /* zinc-300 */
+    --content: #27272A;      /* zinc-800, slightly softer for long reads */
+    --code-block-bg: #18181B;
+    --code-bg: #F0EFEC;      /* warm grey */
+    --border: #E4E1DD;       /* warm border */
+    --dot-color: #D4D1CC;    /* dot grid color */
+}
+
+[data-theme="dark"] {
+    --accent: #3B82F6;       /* blue-500, brighter for dark */
+    --accent-hover: #60A5FA; /* blue-400 */
+    --accent-light: rgba(59, 130, 246, 0.12);
+    --accent-mid: rgba(59, 130, 246, 0.2);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    --theme: #09090B;        /* zinc-950 */
+    --entry: #18181B;        /* zinc-900 */
+    --primary: #FAFAFA;      /* zinc-50 */
+    --secondary: #A1A1AA;    /* zinc-400 */
+    --tertiary: #3F3F46;     /* zinc-700 */
+    --content: #D4D4D8;      /* zinc-300 */
+    --code-block-bg: #0C0A09;
+    --code-bg: #27272A;      /* zinc-800 */
+    --border: #27272A;       /* zinc-800 */
+    --dot-color: #1C1C21;    /* barely visible in dark */
+}
+
+/* ---- Global link styling ---- */
+a {
+    color: var(--accent);
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* ---- Smooth body bg with dot-grid texture ---- */
+body {
+    background-color: var(--theme);
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, var(--accent-light) 0%, transparent 100%),
+        radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+    background-size: 100% 100%, 26px 26px;
+    background-attachment: scroll, fixed;
+    transition: background-color var(--transition-normal);
+}
+
+/* ---- Selection ---- */
+::selection {
+    background: var(--accent-mid);
+    color: var(--primary);
+}
