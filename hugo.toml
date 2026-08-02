@@ -1,0 +1,40 @@
+baseURL = "https://Fresh-fre.github.io/"
+languageCode = "zh-cn"
+title = "Fresh的博客"
+
+theme = "PaperMod"
+
+[menu]
+
+[[menu.main]]
+name = "文章"
+url = "/posts/"
+weight = 1
+
+[[menu.main]]
+name = "关于"
+url = "/about/"
+weight = 2
+
+[params]
+  defaultTheme = "auto"
+
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowCodeCopyButtons = true
+
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+
+[params.homeInfoParams]
+  Title = "Hi there 👋"
+  Content = """
+记录我的技术学习过程：
+
+- Go
+- Gin
+- PostgreSQL
+- Docker
+- AI
+"""
+
