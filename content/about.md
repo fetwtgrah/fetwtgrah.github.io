@@ -1,6 +1,6 @@
 ---
 title: "关于我"
-draft:false
+draft: false
 ---
 
 # About
