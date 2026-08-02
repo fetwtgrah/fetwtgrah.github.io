@@ -1,5 +1,6 @@
 ---
 title: "关于我"
+draft:false
 ---
 
 # About
@@ -12,3 +13,4 @@ title: "关于我"
 - 后端开发
 - Linux
 - 数据库
+
