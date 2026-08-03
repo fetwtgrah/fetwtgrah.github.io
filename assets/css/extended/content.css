@@ -3,11 +3,79 @@
    Enhanced reading experience + code blocks
    ============================================ */
 
-/* ---- Post body ---- */
+/* ============================================
+   Post Single Layout — Wider for Chinese reading
+   ============================================ */
+
+.post-single {
+    max-width: var(--main-width);
+    margin: 0 auto;
+}
+
+.post-header {
+    margin-bottom: 1.5rem;
+}
+
+.post-title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.post-description {
+    font-size: 1.1rem;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+}
+
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--secondary);
+}
+
+/* ============================================
+   Post body
+   ============================================ */
 .post-content {
     font-size: 1.02rem;
-    line-height: 1.82;
+    line-height: 1.85;
     color: var(--content);
+}
+
+/* ============================================
+   Breadcrumbs
+   ============================================ */
+
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.breadcrumbs a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.breadcrumbs a:hover {
+    color: var(--accent);
+}
+
+.breadcrumbs svg {
+    width: 14px;
+    height: 14px;
+    color: var(--tertiary);
 }
 
 /* ============================================
@@ -113,7 +181,7 @@
 }
 
 /* ============================================
-   Code Blocks
+   Code Blocks — VS Code Style
    ============================================ */
 
 /* Code block wrapper */
@@ -125,6 +193,7 @@
     margin: 1.5rem 0;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Code block header — filename/language label */
@@ -145,15 +214,18 @@
 .post-content pre {
     padding: 1.2rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .post-content pre code {
     font-size: 0.875rem;
-    line-height: 1.65;
+    line-height: 1.7;
     color: #E4E4E7;
     background: transparent;
     padding: 0;
     border: none;
+    display: block;
+    min-width: 100%;
 }
 
 /* Inline code within post content */

@@ -1,6 +1,6 @@
 /* ============================================
    Home Page — Developer Portfolio Layout
-   README-style hero + tech cards + posts + projects
+   Hero + Tech Stack + Projects + Posts
    ============================================ */
 
 /* ---- Home container: wider than article pages ---- */
@@ -40,10 +40,23 @@
 
 .hero-subtitle {
     font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.5;
+    margin-bottom: 0.35rem;
+}
+
+.hero-intro {
+    font-size: 1rem;
     color: var(--secondary);
-    line-height: 1.55;
+    line-height: 1.6;
     margin-bottom: 1.5rem;
     max-width: 560px;
+}
+
+.hero-intro strong {
+    color: var(--primary);
+    font-weight: 600;
 }
 
 /* CTA buttons */
@@ -130,12 +143,18 @@
 
 .tech-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2.5rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
     .tech-grid {
         grid-template-columns: 1fr;
     }
@@ -195,10 +214,6 @@
 
 .posts-mini {
     margin-bottom: 2.5rem;
-}
-
-.posts-mini .post-entry {
-    /* Inherit existing post-entry styles, just used in a different context */
 }
 
 .posts-mini-link {
@@ -282,13 +297,23 @@
     font-size: 0.85rem;
     color: var(--secondary);
     line-height: 1.5;
-    margin: 0.35rem 0 0.7rem;
+    margin: 0.35rem 0 0.5rem;
+}
+
+.project-card-role {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    line-height: 1.5;
+    margin: 0 0 0.7rem;
+    padding-left: 0.6rem;
+    border-left: 2px solid var(--tertiary);
 }
 
 .project-card-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+    margin-bottom: 0.8rem;
 }
 
 .project-card-meta span {
@@ -301,46 +326,26 @@
     border-radius: 99px;
 }
 
-/* ============================================
-   Home Hero Override — PaperMod first-entry
-   ============================================ */
-
-.first-entry {
-    min-height: auto;
-    margin: 0 0 2.5rem 0;
-    padding: 0;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
+.project-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
 }
 
-.first-entry .entry-header h1 {
-    font-family: var(--font-display);
-    font-size: 2.75rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.15;
-    background: none;
-    -webkit-text-fill-color: var(--primary);
-    color: var(--primary);
-    margin-bottom: 0.5rem;
+.project-card-link svg {
+    width: 14px;
+    height: 14px;
 }
 
-.first-entry .entry-content {
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: var(--secondary);
-    max-width: 560px;
-}
-
-.first-entry .entry-footer {
-    margin-top: 1.2rem;
-}
-
-.first-entry .entry-footer .social-icons svg {
-    width: 20px;
-    height: 20px;
+.project-card-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
 }
 
 /* ============================================
@@ -352,20 +357,21 @@
         padding: 2.5rem 0 1.5rem;
     }
 
-    .hero h1,
-    .first-entry .entry-header h1 {
+    .hero h1 {
         font-size: 2rem;
     }
 
-    .hero-subtitle,
-    .first-entry .entry-content {
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-intro {
         font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
-    .hero h1,
-    .first-entry .entry-header h1 {
+    .hero h1 {
         font-size: 1.65rem;
     }
 

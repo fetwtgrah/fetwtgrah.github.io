@@ -8,8 +8,8 @@
     /* Accent — developer blue */
     --accent: #2563EB;
     --accent-hover: #1D4ED8;
-    --accent-light: rgba(37, 99, 235, 0.08);
-    --accent-mid: rgba(37, 99, 235, 0.16);
+    --accent-light: rgba(37, 99, 235, 0.16);
+    --accent-mid: rgba(37, 99, 235, 0.28);
 
     /* Layout tokens */
     --radius: 12px;
@@ -17,7 +17,7 @@
     --radius-xs: 6px;
     --content-gap: 20px;
     --nav-width: 1024px;
-    --main-width: 720px;
+    --main-width: 780px;
     --home-width: 860px;
 
     /* Shadows — subtle, barely-there */
@@ -39,29 +39,29 @@
     --code-block-bg: #18181B;
     --code-bg: #F0EFEC;      /* warm grey */
     --border: #E4E1DD;       /* warm border */
-    --dot-color: #D4D1CC;    /* dot grid color */
+    --grid-line: rgba(0, 0, 0, 0.04);  /* subtle graph paper grid */
 }
 
 [data-theme="dark"] {
-    --accent: #3B82F6;       /* blue-500, brighter for dark */
-    --accent-hover: #60A5FA; /* blue-400 */
-    --accent-light: rgba(59, 130, 246, 0.12);
-    --accent-mid: rgba(59, 130, 246, 0.2);
+    --accent: #58A6FF;       /* GitHub blue — brighter for dark */
+    --accent-hover: #79C0FF; /* lighter blue hover */
+    --accent-light: rgba(88, 166, 255, 0.22);
+    --accent-mid: rgba(88, 166, 255, 0.32);
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 
-    --theme: #09090B;        /* zinc-950 */
-    --entry: #18181B;        /* zinc-900 */
-    --primary: #FAFAFA;      /* zinc-50 */
-    --secondary: #A1A1AA;    /* zinc-400 */
-    --tertiary: #3F3F46;     /* zinc-700 */
-    --content: #D4D4D8;      /* zinc-300 */
-    --code-block-bg: #0C0A09;
-    --code-bg: #27272A;      /* zinc-800 */
-    --border: #27272A;       /* zinc-800 */
-    --dot-color: #1C1C21;    /* barely visible in dark */
+    --theme: #0D1117;        /* GitHub Dark bg */
+    --entry: #161B22;        /* GitHub Dark elevated */
+    --primary: #E6EDF3;      /* near-white, softer than pure white */
+    --secondary: #8B949E;    /* GitHub muted text */
+    --tertiary: #30363D;     /* GitHub border */
+    --content: #C9D1D9;      /* GitHub primary text */
+    --code-block-bg: #161B22;
+    --code-bg: #21262D;      /* GitHub code bg */
+    --border: #30363D;       /* GitHub border */
+    --grid-line: rgba(255, 255, 255, 0.035); /* subtle graph paper grid */
 }
 
 /* ---- Global link styling ---- */
@@ -74,14 +74,22 @@ a:hover {
     color: var(--accent-hover);
 }
 
-/* ---- Smooth body bg with dot-grid texture ---- */
-body {
+/* ---- Smooth body bg with graph-paper grid + dual glow ---- */
+body,
+body.list,
+[data-theme="dark"] body.list {
     background-color: var(--theme);
     background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%, var(--accent-light) 0%, transparent 100%),
-        radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
-    background-size: 100% 100%, 26px 26px;
-    background-attachment: scroll, fixed;
+        /* Top glow */
+        radial-gradient(ellipse 100% 60% at 50% 0%, var(--accent-light) 0%, transparent 100%),
+        /* Bottom glow */
+        radial-gradient(ellipse 100% 60% at 50% 100%, var(--accent-light) 0%, transparent 100%),
+        /* Vertical grid lines */
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        /* Horizontal grid lines */
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+    background-attachment: scroll, scroll, fixed, fixed;
     transition: background-color var(--transition-normal);
 }
 

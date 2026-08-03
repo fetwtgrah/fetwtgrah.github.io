@@ -1,5 +1,4 @@
 baseURL = "https://fetwtgrah.github.io/"
-languageCode = "zh-cn"
 locale = "zh-cn"
 title = "Fresh的博客"
 
@@ -14,22 +13,22 @@ theme = "PaperMod"
 [menu]
 
 [[menu.main]]
-name = "~/posts"
-url = "/posts/"
+name = "Home"
+url = "/"
 weight = 1
 
 [[menu.main]]
-name = "~/tags"
-url = "/tags/"
+name = "Posts"
+url = "/posts/"
 weight = 2
 
 [[menu.main]]
-name = "~/projects"
+name = "Projects"
 url = "/projects/"
 weight = 3
 
 [[menu.main]]
-name = "~/about"
+name = "About"
 url = "/about/"
 weight = 4
 
@@ -42,7 +41,8 @@ weight = 4
   ShowShareButtons = false
   ShowCodeCopyButtons = true
   ShowPostNavLinks = true
-  ShowBreadCrumbs = false
+  ShowBreadCrumbs = true
+  mainSections = ["posts"]
   ShowWordCount = true
   ShowToc = true
 
@@ -62,7 +62,9 @@ weight = 4
 
 [params.homeInfoParams]
   Title = "Hi, I'm Fresh"
-  Subtitle = "striving in coding && AI"
+  Subtitle = "Software Engineering Student"
   Content = """
+  Building things with **Go**, **Gin**, **PostgreSQL**, and **Docker**.
+  Currently exploring backend systems, DevOps, and AI integration.
   """
 
