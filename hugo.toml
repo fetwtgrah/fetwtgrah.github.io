@@ -62,7 +62,7 @@ weight = 4
 
 [params.homeInfoParams]
   Title = "Hi, I'm Fresh"
-  Subtitle = "Software Engineering Student · Go Backend · Open Source"
+  Subtitle = "striving in coding && AI"
   Content = """
   """
 
