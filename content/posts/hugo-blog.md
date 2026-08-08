@@ -7,11 +7,11 @@ description: "搭建个人技术博客的记录与规划"
 ShowToc: true
 ---
 
-## 🚀 为什么搭建博客
+## 为什么搭建博客
 
 一个属于自己的空间来记录学习过程、整理技术笔记和发布有的没的。
 
-## 🎯 学习方向
+## 学习方向
 
 目前主要方向：
 
@@ -19,7 +19,7 @@ ShowToc: true
 - **数据库** — PostgreSQL 核心概念与性能优化
 - **DevOps** — Docker 容器化、Linux 运维
 
-## 📝 后续计划
+## 后续计划
 
 后续会记录以下内容：
 
@@ -28,7 +28,11 @@ ShowToc: true
 - Linux 常用命令与脚本
 - AI/LLM 应用集成
 
-## 💡 关于这个博客
+# 目前进展
+
+简易论坛系统(https://github.com/fetwtgrah/Crosslight.git)
+
+## 关于这个博客
 
 使用 **Hugo** + **PaperMod** 主题搭建，托管在 **GitHub Pages** 上。
 
