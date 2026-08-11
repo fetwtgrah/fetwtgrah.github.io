@@ -1,51 +1,21 @@
-{{- /* Head custom content — theme init + reading progress */ -}}
+{{- /* Fonts only.
+
+  PaperMod's head.html already emits the pref-theme bootstrap script
+  (see themes/PaperMod/layouts/_partials/head.html) before this partial
+  runs, so no theme-init script belongs here.
+
+  Type roles — see assets/css/extended/00-tokens.css:
+    Zen Maru Gothic  display, Latin only, used sparingly
+    Karla            body copy (Latin-only face, so CJK falls through
+                     cleanly to the system stack instead of rendering
+                     simplified Chinese in Japanese glyph forms)
+    Space Mono       eyebrows, dates, metadata
+*/ -}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-{{- /* Theme init — prevent flash of wrong theme */ -}}
-<script>
-(function() {
-    var stored = localStorage.getItem("pref-theme");
-    if (stored === 'dark' || stored === 'light') {
-        document.documentElement.dataset.theme = stored;
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.dataset.theme = 'dark';
-    } else {
-        document.documentElement.dataset.theme = 'light';
-    }
-})();
-</script>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
 
 {{- if or .Params.math .Site.Params.math }}
 {{ partialCached "math.html" . }}
-{{- end }}
-
-{{- /* Reading progress bar — only on single post pages */ -}}
-{{- if and (eq .Kind "page") (eq .Type "posts") }}
-<style>
-.reading-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2.5px;
-    background: var(--accent);
-    z-index: 101;
-    width: 0%;
-    border-radius: 0 1px 1px 0;
-    transition: width 0.15s linear;
-}
-</style>
-<script>
-(function() {
-    var bar = document.createElement('div');
-    bar.className = 'reading-progress';
-    document.body.appendChild(bar);
-    window.addEventListener('scroll', function() {
-        var scrollTop = window.scrollY || document.documentElement.scrollTop;
-        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        bar.style.width = Math.min(progress, 100) + '%';
-    }, {passive: true});
-})();
-</script>
 {{- end }}

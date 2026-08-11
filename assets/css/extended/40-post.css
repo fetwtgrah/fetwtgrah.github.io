@@ -1,0 +1,543 @@
+/* ============================================================
+   40-post.css — list pages, reading pages, prose, code
+
+   10-base.css released .main from PaperMod's 720px clamp so the
+   homepage can go full-bleed. Prose pages have to take a measure
+   back, which happens here — targeted at the theme's own class
+   names (verified against themes/PaperMod/layouts/) rather than
+   by a blanket .main > * rule that would fight the homepage's
+   own .shell containers.
+   ============================================================ */
+
+:root {
+    --measure: calc(var(--main-width) + var(--shell-pad) * 2);
+}
+
+.page-header,
+.post-single,
+.pagination,
+.terms-tags,
+.archive-year,
+.archive-month,
+.not-found,
+.main > .post-content,
+.main > #searchbox,
+.main > #searchResults,
+.post-entry,
+.first-entry {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-inline: var(--shell-pad);
+    width: 100%;
+}
+
+/* Section pages (Posts / Projects / tags) need air above the
+   title now that .main carries no padding of its own. */
+.page-header {
+    padding-top: var(--section-y);
+    padding-bottom: var(--s-5);
+}
+
+.page-header h1 {
+    font-size: var(--t-2xl);
+    margin: 0;
+}
+
+.page-header h1::after {
+    content: ".";
+    color: var(--coral);
+}
+
+.post-description {
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    margin-top: var(--s-3);
+}
+
+.breadcrumbs {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-3);
+}
+
+/* ============================================================
+   LIST ENTRIES
+
+   The theme lays a transparent .entry-link over the whole card,
+   so hover styling has to hang off the article, not a link.
+   ============================================================ */
+
+.post-entry,
+.first-entry {
+    position: relative;
+    margin-bottom: var(--s-5);
+    padding-block: var(--s-5);
+    background: none;
+    border: 0;
+    box-shadow: none;
+    transition: transform var(--dur) var(--ease);
+}
+
+/* Inner sheet, inset by the gutter so the ink frame lines up
+   with the measure instead of the viewport. */
+.post-entry::before,
+.first-entry::before {
+    content: "";
+    position: absolute;
+    inset: 0 var(--shell-pad);
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    box-shadow: var(--cast);
+    transition: box-shadow var(--dur) var(--ease);
+    z-index: 0;
+}
+
+.post-entry:hover {
+    transform: translate(-2px, -2px);
+}
+
+.post-entry:hover::before,
+.first-entry:hover::before {
+    box-shadow: var(--cast-blue);
+}
+
+.post-entry .entry-header,
+.post-entry .entry-content,
+.post-entry .entry-footer,
+.first-entry .entry-header,
+.first-entry .entry-content,
+.first-entry .entry-footer {
+    position: relative;
+    z-index: 1;
+    padding-inline: var(--s-6);
+}
+
+.entry-header h2 {
+    font-size: var(--t-lg);
+    line-height: var(--lh-snug);
+    margin: 0;
+}
+
+.post-entry:hover .entry-header h2 {
+    color: var(--blue-deep);
+}
+
+.entry-content {
+    margin: var(--s-3) 0 0;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    line-height: 1.75;
+}
+
+.entry-content p {
+    margin: 0;
+}
+
+.entry-footer {
+    margin-top: var(--s-4);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+}
+
+.entry-cover {
+    padding-inline: var(--s-6);
+    position: relative;
+    z-index: 1;
+}
+
+/* The theme's whole-card click layer carries no z-index, so the
+   z-index:1 content above would swallow clicks on the title.
+   Lift it over the content and inset it to match the ink frame. */
+.post-entry .entry-link,
+.first-entry .entry-link {
+    inset: 0 var(--shell-pad);
+    left: var(--shell-pad);
+    right: var(--shell-pad);
+    z-index: 2;
+}
+
+.entry-cover img {
+    border: 2px solid var(--ink);
+    border-radius: var(--r-sm);
+}
+
+/* ============================================================
+   READING PAGE
+   ============================================================ */
+
+.post-single {
+    padding-top: var(--section-y);
+}
+
+.post-header {
+    margin-bottom: var(--s-7);
+    padding-bottom: var(--s-5);
+    border-bottom: 3px solid var(--ink);
+}
+
+.post-title {
+    font-size: clamp(1.9rem, 5vw, var(--t-3xl));
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.post-meta {
+    margin-top: var(--s-4);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+}
+
+.post-meta a {
+    color: var(--blue-deep);
+}
+
+/* --- TOC --------------------------------------------------
+   A tacked-on index card, tipped half a degree. */
+.toc {
+    background: var(--blue-wash);
+    border: 2px solid var(--blue);
+    border-radius: var(--r-md);
+    margin-bottom: var(--s-7);
+    padding: var(--s-4) var(--s-5);
+    transform: rotate(-0.35deg);
+}
+
+.toc details summary {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    cursor: pointer;
+}
+
+.toc .inner {
+    margin-top: var(--s-3);
+    font-size: var(--t-sm);
+}
+
+.toc ul {
+    padding-inline-start: var(--s-5);
+}
+
+.toc li {
+    margin: var(--s-1) 0;
+}
+
+.toc a {
+    color: var(--ink-soft);
+}
+
+.toc a:hover {
+    color: var(--coral-deep);
+}
+
+/* --- Prose ------------------------------------------------ */
+.post-content {
+    font-size: var(--t-base);
+    line-height: var(--lh-body);
+}
+
+.post-content > * + * {
+    margin-top: var(--s-5);
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    margin-top: var(--s-8);
+    margin-bottom: var(--s-4);
+    line-height: var(--lh-snug);
+}
+
+.post-content h2 {
+    font-size: var(--t-xl);
+    padding-bottom: var(--s-2);
+    border-bottom: 2px solid var(--rule);
+}
+
+.post-content h3 {
+    font-size: var(--t-lg);
+}
+
+.post-content h4 {
+    font-size: var(--t-md);
+}
+
+/* Anchor links the theme injects next to headings. */
+.post-content .anchor {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.post-content ul,
+.post-content ol {
+    padding-inline-start: var(--s-6);
+}
+
+.post-content li {
+    margin: var(--s-2) 0;
+}
+
+.post-content li::marker {
+    color: var(--coral);
+}
+
+.post-content strong {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+/* --- Blockquote ------------------------------------------
+   Coral rule down the side, no quote-mark ornament. */
+.post-content blockquote {
+    margin-inline: 0;
+    padding: var(--s-2) 0 var(--s-2) var(--s-5);
+    border-inline-start: 4px solid var(--coral);
+    background: none;
+    color: var(--ink-soft);
+    font-style: normal;
+}
+
+.post-content blockquote p {
+    margin: 0;
+}
+
+.post-content hr {
+    height: 3px;
+    border: 0;
+    background: var(--rule);
+    margin-block: var(--s-8);
+}
+
+.post-content img {
+    border: 2px solid var(--ink);
+    border-radius: var(--r-sm);
+    box-shadow: var(--cast);
+}
+
+.post-content figcaption {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    margin-top: var(--s-3);
+    text-align: center;
+}
+
+/* --- Tables ---------------------------------------------- */
+.post-content table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: var(--t-sm);
+}
+
+.post-content th {
+    background: var(--blue-wash);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: start;
+    color: var(--blue-deep);
+}
+
+.post-content th,
+.post-content td {
+    border: 1.5px solid var(--rule);
+    padding: var(--s-3) var(--s-4);
+}
+
+/* --- Code ------------------------------------------------ */
+.post-content code {
+    font-family: var(--font-code);
+    font-size: 0.875em;
+    background: var(--code-bg);
+    color: var(--coral-deep);
+    padding: 0.15em 0.4em;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--rule);
+}
+
+.post-content pre {
+    background: var(--code-block-bg) !important;
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: var(--s-5);
+    overflow-x: auto;
+    font-size: var(--t-sm);
+    line-height: 1.65;
+}
+
+.post-content pre code {
+    background: transparent !important;
+    color: inherit;
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+}
+
+.post-content .highlight {
+    border-radius: var(--r-md);
+}
+
+/* Copy button — mono, matches the label face. */
+.post-content .copy-code {
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--blue-deep);
+    color: var(--paper);
+    border-radius: var(--r-sm);
+    padding: 0.35em 0.6em;
+}
+
+.post-content .copy-code:hover {
+    background: var(--coral-deep);
+}
+
+/* --- Footer, tags, nav ----------------------------------- */
+.post-footer {
+    margin-top: var(--s-8);
+    padding-top: var(--s-5);
+    border-top: 3px solid var(--ink);
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-bottom: var(--s-6);
+}
+
+.post-tags li,
+.post-tags a {
+    display: inline-flex;
+}
+
+.post-tags a {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    background: var(--paper-2);
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--r-sm);
+    padding: 0.4em 0.7em;
+    color: var(--ink-soft);
+    transition: border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
+}
+
+.post-tags a:hover {
+    border-color: var(--coral);
+    color: var(--coral-deep);
+}
+
+.paginav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-4);
+    margin-top: var(--s-6);
+}
+
+.paginav a {
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: var(--s-4) var(--s-5);
+    transition: box-shadow var(--dur) var(--ease);
+}
+
+.paginav a:hover {
+    box-shadow: var(--cast);
+}
+
+.paginav .title {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.paginav .prev .title::before {
+    content: "← ";
+}
+
+.paginav .next .title::after {
+    content: " →";
+}
+
+/* --- Pagination ------------------------------------------ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--s-4);
+    padding-block: var(--s-7);
+}
+
+.pagination a {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 2px solid var(--ink);
+    border-radius: var(--r-sm);
+    padding: 0.6em 1em;
+    background: var(--entry);
+    transition: background-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
+}
+
+.pagination a:hover {
+    background: var(--blue-deep);
+    color: var(--paper);
+}
+
+/* --- Tag index ------------------------------------------- */
+.terms-tags {
+    padding-block: var(--s-6) var(--s-8);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+}
+
+.terms-tags a {
+    font-family: var(--font-label);
+    font-size: var(--t-sm);
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-sm);
+    padding: 0.5em 0.9em;
+    box-shadow: var(--cast);
+    transition: transform var(--dur) var(--ease);
+}
+
+.terms-tags a:hover {
+    transform: translate(-2px, -2px);
+    background: var(--coral-wash);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-entry,
+    .terms-tags a {
+        transition: none;
+    }
+    .post-entry:hover,
+    .terms-tags a:hover {
+        transform: none;
+    }
+}

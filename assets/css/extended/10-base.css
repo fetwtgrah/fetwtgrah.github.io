@@ -1,0 +1,234 @@
+/* ============================================================
+   10-base.css — page ground, typography baseline, focus
+   ============================================================ */
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--t-base);
+    line-height: var(--lh-body);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Grain over the whole sheet. Fixed so it reads as paper the
+   page is printed on, not as a texture that scrolls with it. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: var(--grain);
+    background-repeat: repeat;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: var(--ink-blend);
+}
+
+/* --- Headings ---------------------------------------------
+   Display face is Latin-only by design and used sparingly:
+   section titles and the name. Everything else is body. */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    line-height: var(--lh-tight);
+    font-weight: 700;
+    letter-spacing: -0.012em;
+}
+
+/* --- Utility type classes --------------------------------- */
+.ink-label {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--blue-deep);
+}
+
+/* --- Links ------------------------------------------------
+   Body links get an ink underline that thickens on hover —
+   a pen going over the same line twice. */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-content a,
+.about-card-body a,
+.footer-note a {
+    color: var(--blue-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--blue) 45%, transparent);
+    transition: text-decoration-thickness var(--dur) var(--ease),
+                text-decoration-color var(--dur) var(--ease);
+}
+
+.post-content a:hover,
+.about-card-body a:hover,
+.footer-note a:hover {
+    text-decoration-thickness: 3px;
+    text-decoration-color: var(--coral);
+}
+
+/* --- Focus ------------------------------------------------
+   Coral against every ground in both modes, and it never
+   gets removed. */
+:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 3px;
+    border-radius: var(--r-sm);
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+::selection {
+    background: var(--blue-deep);
+    color: var(--paper);
+}
+
+/* --- Shell -----------------------------------------------
+   PaperMod clamps .main to 720px, which is right for reading
+   and wrong for a portfolio. Release it, then re-clamp the
+   prose column on pages that are actually prose (40-post).  */
+.main {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    min-height: calc(100vh - var(--header-height) - 200px);
+}
+
+/* Any section that opts into the reading measure. */
+.shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--shell-pad);
+}
+
+/* --- Hand-cut rule ---------------------------------------
+   A divider drawn with three offset ink strokes instead of a
+   1px border: registration is never perfect on a Riso. */
+.ink-rule {
+    position: relative;
+    height: 3px;
+    border: 0;
+    margin: 0;
+    background: var(--rule);
+}
+
+.ink-rule::before,
+.ink-rule::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    top: -2px;
+}
+
+.ink-rule::before {
+    left: 0;
+    width: 38%;
+    background: var(--blue);
+    opacity: 0.7;
+}
+
+.ink-rule::after {
+    right: 0;
+    width: 22%;
+    top: 3px;
+    background: var(--coral);
+    opacity: 0.55;
+}
+
+/* --- Ink chip --------------------------------------------
+   Shared tag/pill. Used by hero, tech cards, notes, about. */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    line-height: 1;
+    padding: 0.44em 0.7em;
+    border: 1.5px solid var(--rule-strong);
+    border-radius: var(--r-sm);
+    background: color-mix(in srgb, var(--paper) 60%, transparent);
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+.chip[data-ink="blue"] {
+    border-color: var(--blue);
+    background: var(--blue-wash);
+    color: var(--blue-deep);
+}
+
+.chip[data-ink="coral"] {
+    border-color: var(--coral);
+    background: var(--coral-wash);
+    color: var(--coral-deep);
+}
+
+.chip[data-ink="matcha"] {
+    border-color: var(--matcha);
+    background: color-mix(in srgb, var(--matcha) 16%, var(--paper));
+    color: var(--matcha-deep);
+}
+
+/* --- Text link with a moving arrow ------------------------ */
+.ink-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    font-family: var(--font-label);
+    font-size: var(--t-sm);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--blue-deep);
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    transition: color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+
+.ink-link::after {
+    content: "→";
+    transition: transform var(--dur) var(--ease);
+}
+
+.ink-link:hover {
+    color: var(--coral-deep);
+    border-bottom-color: var(--coral);
+}
+
+.ink-link:hover::after {
+    transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ink-link::after {
+        transition: none;
+    }
+    .ink-link:hover::after {
+        transform: none;
+    }
+}

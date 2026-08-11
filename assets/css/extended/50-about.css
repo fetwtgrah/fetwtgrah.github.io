@@ -1,0 +1,210 @@
+/* ============================================================
+   50-about.css — About page
+
+   Restyles the class names already written into content/about.md
+   (.about-card / .timeline / .status-dot / .tech-badges …), so the
+   content file is never touched. about.md renders through
+   single.html, which means 40-post.css already gave it a measure.
+   ============================================================ */
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+    margin-top: var(--s-6);
+}
+
+/* --- Card -------------------------------------------------
+   Same ink frame as the homepage, so the two pages read as one
+   printed object. */
+.about-card {
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    box-shadow: var(--cast);
+    overflow: hidden;
+}
+
+.about-card-title {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    background: var(--blue-wash);
+    border-bottom: 2px solid var(--ink);
+    padding: var(--s-3) var(--s-5);
+}
+
+.about-card-title svg {
+    flex: 0 0 auto;
+    stroke: currentColor;
+}
+
+.about-card-body {
+    padding: var(--s-5);
+}
+
+/* about.md sets its own paragraph flow; keep it tight and let
+   the last one sit flush. */
+.about-card-body > p {
+    margin: 0 0 var(--s-4);
+    max-width: 66ch;
+}
+
+.about-card-body > p:last-child {
+    margin-bottom: 0;
+}
+
+.about-card-body ul {
+    margin: 0 0 var(--s-4);
+    padding-inline-start: var(--s-6);
+}
+
+.about-card-body li {
+    margin: var(--s-2) 0;
+}
+
+.about-card-body li::marker {
+    color: var(--coral);
+}
+
+/* --- Current status --------------------------------------
+   The one matcha moment on the page, matching the hero's
+   "正在学" line. */
+.status-card-inline {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    margin-top: var(--s-5);
+    padding: var(--s-3) var(--s-4);
+    background: color-mix(in srgb, var(--matcha) 13%, var(--paper));
+    border-inline-start: 4px solid var(--matcha);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+}
+
+.status-card-inline strong {
+    color: var(--matcha-deep);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--matcha);
+    border: 1.5px solid var(--ink);
+}
+
+/* --- Timeline --------------------------------------------
+   Same dashed ink track as the homepage path, same state
+   colours. Ordered content, state-encoded dots — no 01/02/03.
+   ---------------------------------------------------------- */
+.timeline {
+    position: relative;
+    padding-left: 0;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--rule-strong) 0 6px,
+        transparent 6px 11px
+    );
+}
+
+.timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-5);
+    padding-bottom: var(--s-6);
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-dot {
+    width: 14px;
+    height: 14px;
+    margin-top: 6px;
+    border-radius: 50%;
+    border: 2.5px solid var(--ink);
+    background: var(--paper);
+    z-index: 1;
+}
+
+.timeline-dot.done {
+    background: var(--matcha);
+}
+
+.timeline-dot.current {
+    background: var(--coral);
+    box-shadow: 0 0 0 5px var(--coral-wash);
+}
+
+.timeline-dot.future {
+    background: var(--paper);
+}
+
+.timeline-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--t-md);
+    line-height: var(--lh-snug);
+}
+
+.timeline-desc {
+    margin-top: var(--s-2);
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+}
+
+.timeline-item:has(.timeline-dot.future) .timeline-title {
+    color: var(--ink-soft);
+}
+
+/* --- Tech badges ----------------------------------------- */
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-5);
+}
+
+.tech-badges span {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    padding: 0.44em 0.7em;
+    border: 1.5px solid var(--blue);
+    border-radius: var(--r-sm);
+    background: var(--blue-wash);
+    color: var(--blue-deep);
+}
+
+/* The Jobs pull-quote at the end of about.md — let it sit
+   apart from the cards rather than inside the flow. */
+.post-content > blockquote:last-child {
+    margin-top: var(--s-8);
+    font-family: var(--font-display);
+    font-size: var(--t-md);
+    color: var(--ink-soft);
+}

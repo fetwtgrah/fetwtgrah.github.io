@@ -1,0 +1,190 @@
+/* ============================================================
+   00-tokens.css — Risograph ink system
+   ------------------------------------------------------------
+   Files in assets/css/extended/ are concatenated by PaperMod in
+   PATH ORDER (head.html: resources.Match "css/extended/*.css").
+   The numeric prefixes are load order, not decoration:
+     00 tokens · 10 base · 20 chrome · 30 home · 40 post
+     50 about  · 60 responsive
+   ============================================================ */
+
+:root {
+    /* --- Ink ------------------------------------------------
+       A risograph drum holds a handful of spot inks, never a
+       gradient ramp. Four inks, and the fifth is what you get
+       when two of them overprint. Not picked — derived.        */
+    --paper: #EFEBE1;
+    --paper-2: #E6E1D5;
+    --paper-3: #DBD5C6;
+
+    --ink: #23303A;
+    --ink-soft: #52616C;
+    /* Darkened from #8A949C, which only reached 2.6:1 on paper. */
+    --ink-faint: #5F6B74;
+
+    --blue: #5B7FA6;
+    --blue-deep: #3E6280;
+    --blue-wash: #DDE4EC;
+
+    --coral: #E4735E;
+    /* The -deep pairs are the text-safe cuts of each ink: every one
+       clears 4.5:1 on paper, on --entry, AND on its own wash. The
+       bright cuts above are for fills, rules and borders only. */
+    --coral-deep: #A9412B;
+    --coral-wash: #F6E0DA;
+
+    --matcha: #7D9471;
+    --matcha-deep: #556B4C;
+
+    /* blue x coral, multiply */
+    --overprint: #7A5F74;
+
+    --rule: #C9C2B2;
+    --rule-strong: #A9A192;
+
+    /* Ink sits on paper; on press it multiplies. */
+    --ink-blend: multiply;
+
+    /* --- Type ----------------------------------------------
+       CJK families lead in the body stack so simplified
+       Chinese never renders through a Japanese face.          */
+    --font-display: "Zen Maru Gothic", "PingFang SC", "Microsoft YaHei",
+        "Noto Sans SC", sans-serif;
+    --font-body: "Karla", "PingFang SC", "Microsoft YaHei",
+        "Noto Sans SC", "Hiragino Sans GB", sans-serif;
+    --font-label: "Space Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+    --font-code: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono",
+        Consolas, "Liberation Mono", monospace;
+
+    /* 1.24 ratio — tight enough that display type reads as
+       considered rather than shouted. */
+    --t-xs: 0.75rem;
+    --t-sm: 0.875rem;
+    --t-base: 1.0625rem;
+    --t-md: 1.25rem;
+    --t-lg: 1.5rem;
+    --t-xl: 1.9rem;
+    --t-2xl: 2.4rem;
+    --t-3xl: 3.1rem;
+    --t-4xl: 4rem;
+
+    --lh-tight: 1.16;
+    --lh-snug: 1.35;
+    --lh-body: 1.72;
+
+    --track-label: 0.14em;
+
+    /* --- Space --------------------------------------------- */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4rem;
+    --s-9: 6rem;
+    --s-10: 8rem;
+
+    --section-y: clamp(3.5rem, 8vw, 6.5rem);
+    --shell: 1180px;
+    --shell-pad: clamp(1.25rem, 5vw, 3.5rem);
+
+    /* --- Press artifacts ----------------------------------- */
+    --misregister: 5px;
+    /* Screenprint casts a hard offset, never a soft blur. */
+    --cast: 3px 3px 0 var(--rule-strong);
+    --cast-blue: 4px 4px 0 var(--blue);
+    --cast-coral: 4px 4px 0 var(--coral);
+
+    --r-sm: 3px;
+    --r-md: 6px;
+    --r-lg: 14px;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --dur: 220ms;
+
+    /* --- Paper grain ---------------------------------------
+       feTurbulence, inlined. No network request, no binary in
+       the repo, and it scales without resampling.             */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.34'/%3E%3C/svg%3E");
+
+    /* --- PaperMod overrides -------------------------------
+       Rebinding the theme's own variables means its native
+       components (search, pagination, TOC, code copy, 404)
+       inherit the ink system for free. */
+    --theme: var(--paper);
+    --entry: #F7F4EC;
+    --primary: var(--ink);
+    --secondary: var(--ink-soft);
+    --tertiary: var(--paper-3);
+    --content: var(--ink);
+    --border: var(--rule);
+    --code-bg: #E4E5DC;
+    --code-block-bg: #26313A;
+    --radius: var(--r-md);
+    --gap: var(--s-5);
+    --content-gap: var(--s-5);
+    --nav-width: var(--shell);
+    --main-width: 760px;
+    --header-height: 64px;
+    --footer-height: auto;
+
+    color-scheme: light;
+}
+
+/* --- Night press ------------------------------------------
+   Not an inversion. Ink on dark stock is additive, so the
+   blend flips to screen and every ink is lifted rather than
+   darkened — which is also what actually happens on press. */
+:root[data-theme="dark"] {
+    --paper: #1B242B;
+    --paper-2: #212C34;
+    --paper-3: #2B3841;
+
+    --ink: #DDE3E4;
+    --ink-soft: #9BA7AF;
+    /* Lifted from #6E7C86, which fell to 3.2:1 on --entry cards. */
+    --ink-faint: #8E9BA5;
+
+    --blue: #8FB3CE;
+    --blue-deep: #A9C6DC;
+    --blue-wash: #26343F;
+
+    --coral: #F0907C;
+    --coral-deep: #F4A895;
+    --coral-wash: #38292A;
+
+    --matcha: #A3B893;
+    --matcha-deep: #B6C8A8;
+
+    --overprint: #B08FA8;
+
+    --rule: #3A4750;
+    --rule-strong: #4C5A64;
+
+    --ink-blend: screen;
+
+    --cast: 3px 3px 0 var(--rule-strong);
+
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.2'/%3E%3C/svg%3E");
+
+    --theme: var(--paper);
+    --entry: #232E36;
+    --primary: var(--ink);
+    --secondary: var(--ink-soft);
+    --tertiary: var(--paper-3);
+    --content: var(--ink);
+    --border: var(--rule);
+    --code-bg: #2A353D;
+    --code-block-bg: #151D23;
+
+    color-scheme: dark;
+}
+
+/* PaperMod tints list pages with --code-bg; the ink system
+   already sets page ground, so neutralize both modes. */
+.list,
+[data-theme="dark"] .list {
+    background: var(--paper);
+}

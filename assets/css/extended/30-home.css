@@ -1,0 +1,695 @@
+/* ============================================================
+   30-home.css — homepage sections
+
+   Section rhythm is owned by ONE selector (.band) so nothing
+   further down cancels it. Variants adjust with data-attrs or
+   .is-* modifiers at the same specificity, never by retargeting
+   padding from a second place.
+   ============================================================ */
+
+/* --- Section shell ---------------------------------------- */
+.band {
+    padding-block: var(--section-y);
+}
+
+.shell-rule {
+    max-width: var(--shell);
+    margin-inline: auto;
+}
+
+.band-head {
+    margin-bottom: var(--s-7);
+}
+
+.band-head.is-wide {
+    max-width: 46ch;
+}
+
+.band-title {
+    font-size: var(--t-2xl);
+    margin: var(--s-2) 0 0;
+}
+
+.band-note {
+    margin: var(--s-3) 0 0;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+}
+
+.band-more {
+    margin: var(--s-6) 0 0;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero {
+    position: relative;
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3.5rem, 8vw, 6rem);
+    overflow: hidden;
+}
+
+/* Two flat ink washes bleeding off the edges. Blurred colour
+   fields, no gradient ramp — closer to ink soaking paper. */
+.hero::before,
+.hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero::before {
+    width: 34rem;
+    height: 24rem;
+    top: -8rem;
+    right: -6rem;
+    background: var(--blue);
+    opacity: 0.17;
+}
+
+.hero::after {
+    width: 22rem;
+    height: 18rem;
+    bottom: -7rem;
+    left: -5rem;
+    background: var(--coral);
+    opacity: 0.13;
+}
+
+.hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: clamp(2rem, 5vw, var(--s-8));
+    align-items: center;
+}
+
+.hero-eyebrow {
+    margin: 0 0 var(--s-4);
+}
+
+.hero-name {
+    font-size: clamp(3rem, 8.5vw, var(--t-4xl));
+    line-height: 1.02;
+    margin: 0;
+    letter-spacing: -0.03em;
+}
+
+/* The one place the coral ink touches the display type. */
+.hero-name::after {
+    content: ".";
+    color: var(--coral);
+}
+
+.hero-role {
+    font-family: var(--font-label);
+    font-size: var(--t-sm);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    margin: var(--s-4) 0 0;
+    line-height: 1.6;
+}
+
+.hero-bio {
+    margin-top: var(--s-5);
+    max-width: 46ch;
+    color: var(--ink-soft);
+}
+
+.hero-bio p {
+    margin: 0;
+}
+
+.hero-bio strong {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+/* --- Currently learning ----------------------------------
+   Reads as a line torn from a notebook and taped on: left ink
+   rule, matcha pip, mono label. */
+.hero-now {
+    margin-top: var(--s-6);
+    padding-left: var(--s-4);
+    border-left: 3px solid var(--matcha);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-4);
+}
+
+.hero-now-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--matcha-deep);
+}
+
+.hero-now-list {
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+}
+
+/* --- Buttons --------------------------------------------- */
+.hero-actions {
+    margin-top: var(--s-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+}
+
+.ink-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-label);
+    font-size: var(--t-sm);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.72em 1.15em;
+    border: 2px solid var(--ink);
+    border-radius: var(--r-sm);
+    background: var(--blue-deep);
+    color: var(--paper);
+    box-shadow: var(--cast);
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
+}
+
+.ink-btn:hover {
+    background: var(--overprint);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--rule-strong);
+}
+
+.ink-btn:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--rule-strong);
+}
+
+.ink-btn.is-ghost {
+    background: transparent;
+    color: var(--ink);
+}
+
+.ink-btn.is-ghost:hover {
+    background: var(--coral-wash);
+    color: var(--coral-deep);
+}
+
+/* ============================================================
+   AVATAR — 圆形头像 + hover 旋转效果
+   ============================================================ */
+
+.hero-plate-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.plate {
+    position: relative;
+    width: min(340px, 78vw);
+    aspect-ratio: 1;
+    margin: 0;
+}
+
+/* 圆形头像容器 */
+.avatar-frame {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 3px solid var(--blue-deep);
+    border-radius: 50%;
+    background: var(--paper-2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: transform 0.6s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+/* 头像图片 */
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* hover 时旋转一圈 */
+@media (hover: hover) {
+    .plate:hover .avatar-frame {
+        transform: rotate(360deg);
+        box-shadow: 0 12px 32px rgba(91, 127, 166, 0.25);
+    }
+}
+
+/* 后备头像图标 */
+.avatar-fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: var(--blue-wash);
+    color: var(--blue-deep);
+}
+
+.avatar-fallback svg {
+    width: 40%;
+    height: 40%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .avatar-frame {
+        transition: box-shadow 0.3s var(--ease);
+    }
+    .plate:hover .avatar-frame {
+        transform: none;
+    }
+}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+
+.about-split {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(2rem, 5vw, var(--s-8));
+}
+
+/* Head sits inline here, so drop the stacked-head margin. */
+.about-split .band-head {
+    margin-bottom: 0;
+}
+
+.about-body p {
+    margin: 0 0 var(--s-4);
+    max-width: 60ch;
+}
+
+.about-body p:last-of-type {
+    margin-bottom: var(--s-5);
+}
+
+/* ============================================================
+   STATUS PIP — shared by hero, skills, path
+   ============================================================ */
+
+.status-pip {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    background: var(--ink-faint);
+    border: 1.5px solid var(--ink);
+}
+
+.status-pip[data-status="using"],
+.status-pip[data-status="now"] {
+    background: var(--matcha);
+}
+
+.status-pip[data-status="learning"] {
+    background: var(--coral);
+}
+
+.status-pip[data-status="next"] {
+    background: transparent;
+}
+
+/* ============================================================
+   SKILL GARDEN
+   ============================================================ */
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    gap: var(--s-5);
+    align-items: start;
+}
+
+.skill-card {
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: var(--s-5);
+    box-shadow: var(--cast);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease);
+}
+
+/* Each card carries its own ink as a top band. */
+.skill-card[data-ink="blue"] { border-top: 7px solid var(--blue); }
+.skill-card[data-ink="coral"] { border-top: 7px solid var(--coral); }
+.skill-card[data-ink="matcha"] { border-top: 7px solid var(--matcha); }
+
+.skill-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--rule-strong);
+}
+
+.skill-group {
+    font-family: var(--font-label);
+    font-size: var(--t-sm);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.skill-note {
+    margin: var(--s-2) 0 var(--s-4);
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+}
+
+.skill-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-2) 0;
+    border-bottom: 1px dashed var(--rule);
+}
+
+.skill-item:last-child {
+    border-bottom: 0;
+}
+
+.skill-name {
+    font-size: var(--t-sm);
+    font-weight: 500;
+}
+
+.skill-state {
+    margin-left: auto;
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+}
+
+.skill-item[data-status="using"] .skill-state { color: var(--matcha-deep); }
+.skill-item[data-status="learning"] .skill-state { color: var(--coral-deep); }
+
+.skill-item[data-status="next"] .skill-name {
+    color: var(--ink-faint);
+}
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-6);
+    align-items: start;
+}
+
+/* Break the baseline: the second card sits lower, the way two
+   sheets never stack square. */
+.project-grid > .project-card:nth-child(even) {
+    margin-top: var(--s-6);
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: var(--s-6);
+    box-shadow: var(--cast);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease);
+}
+
+.project-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--cast-blue);
+}
+
+.project-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+}
+
+.project-name {
+    font-size: var(--t-lg);
+    margin: 0;
+}
+
+.project-desc {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    line-height: 1.75;
+}
+
+.project-role {
+    margin: 0;
+    font-size: var(--t-sm);
+    color: var(--ink-soft);
+    padding-left: var(--s-4);
+    border-left: 2px solid var(--blue);
+}
+
+.project-role .ink-label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+}
+
+.project-link {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+/* ============================================================
+   NOTES
+   ============================================================ */
+
+.notes-layout {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: var(--s-6);
+    align-items: start;
+}
+
+.note {
+    background: var(--entry);
+    border: 2px solid var(--ink);
+    border-radius: var(--r-md);
+    padding: var(--s-5);
+    transition: transform var(--dur) var(--ease),
+                box-shadow var(--dur) var(--ease);
+}
+
+.note-lead {
+    box-shadow: var(--cast);
+    padding: var(--s-6);
+}
+
+.note:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--cast-coral);
+}
+
+.notes-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+}
+
+.note-meta {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin: 0 0 var(--s-3);
+}
+
+.note-dot {
+    margin-inline: 0.4em;
+}
+
+.note-title {
+    margin: 0;
+    font-size: var(--t-md);
+    line-height: var(--lh-snug);
+}
+
+.note-lead .note-title {
+    font-size: var(--t-xl);
+}
+
+.note-title a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--coral), var(--coral));
+    background-repeat: no-repeat;
+    background-size: 0 2px;
+    background-position: 0 100%;
+    transition: background-size var(--dur) var(--ease);
+}
+
+.note-title a:hover {
+    background-size: 100% 2px;
+}
+
+.note-excerpt {
+    margin: var(--s-4) 0 0;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+    line-height: 1.75;
+}
+
+.note-tags {
+    margin-top: var(--s-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+}
+
+.note-tags .chip:hover {
+    border-color: var(--coral);
+    color: var(--coral-deep);
+}
+
+/* ============================================================
+   LEARNING PATH
+
+   Ordered, so an ink track runs down the left to carry the
+   sequence. The pip carries state — the part worth reading.
+   ============================================================ */
+
+.path {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 68ch;
+    position: relative;
+}
+
+.path::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--rule-strong) 0 6px,
+        transparent 6px 11px
+    );
+}
+
+.path-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-5);
+    padding-bottom: var(--s-6);
+}
+
+.path-step:last-child {
+    padding-bottom: 0;
+}
+
+.path-pip {
+    width: 14px;
+    height: 14px;
+    margin-top: 7px;
+    border-radius: 50%;
+    border: 2.5px solid var(--ink);
+    background: var(--paper);
+    z-index: 1;
+}
+
+.path-step[data-status="done"] .path-pip {
+    background: var(--matcha);
+}
+
+.path-step[data-status="now"] .path-pip {
+    background: var(--coral);
+    box-shadow: 0 0 0 5px var(--coral-wash);
+}
+
+.path-title {
+    margin: 0;
+    font-size: var(--t-md);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-3);
+}
+
+.path-state {
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+}
+
+.path-step[data-status="done"] .path-state { color: var(--matcha-deep); }
+.path-step[data-status="now"] .path-state { color: var(--coral-deep); }
+
+.path-desc {
+    margin: var(--s-2) 0 0;
+    color: var(--ink-soft);
+    font-size: var(--t-sm);
+}
+
+.path-step[data-status="planned"] .path-title {
+    color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skill-card,
+    .project-card,
+    .note,
+    .ink-btn {
+        transition: box-shadow var(--dur) var(--ease);
+    }
+    .skill-card:hover,
+    .project-card:hover,
+    .note:hover,
+    .ink-btn:hover,
+    .ink-btn:active {
+        transform: none;
+    }
+}

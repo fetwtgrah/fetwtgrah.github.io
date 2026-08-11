@@ -4,8 +4,11 @@ title = "Fresh的博客"
 
 theme = "PaperMod"
 
-# Enable custom CSS from assets/css/extended/
-# PaperMod auto-loads all .css files from this directory
+# Longer .Summary so the lead note on the homepage has something to show.
+summaryLength = 40
+
+# Custom styles live in assets/css/extended/ — PaperMod concatenates every
+# .css file there in path order, hence the 00- … 60- prefixes.
 
 [markup.goldmark.renderer]
   unsafe = true
@@ -36,6 +39,9 @@ weight = 4
   defaultTheme = "auto"
   disableThemeToggle = false
 
+  # Mono eyebrow above the name on the homepage. Read by layouts/index.html.
+  heroEyebrow = "Developer notebook"
+
   # Post display
   ShowReadingTime = true
   ShowShareButtons = false
@@ -51,20 +57,22 @@ weight = 4
     { name = "github", url = "https://github.com/fetwtgrah" },
   ]
 
-  # Label / Logo — terminal style
+  # Label / Logo — set in an ink block by 20-chrome.css, so the
+  # terminal-style "~/" prefix would fight the frame. Plain name.
   [params.label]
-    text = "~/Fresh"
+    text = "Fresh"
 
   # Footer
   [params.footer]
     hideCopyright = false
     text = "built with Hugo · deployed on GitHub Pages"
 
+# Hero copy. Title sets the display name, Subtitle the mono role line.
 [params.homeInfoParams]
-  Title = "Hi, I'm Fresh"
-  Subtitle = "Software Engineering Student"
+  Title = "Fresh"
+  Subtitle = "软件工程在读 · 后端方向"
   Content = """
-  Building things with **Go**, **Gin**, **PostgreSQL**, and **Docker**.
-  Currently exploring backend systems, DevOps, and AI integration.
+  写 Go 和 Gin，把数据放进 PostgreSQL，然后想办法让它跑得更快一点。
+  在这里记下每一次拆开一个系统之后学到的东西。
   """
 

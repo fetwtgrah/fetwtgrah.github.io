@@ -1,0 +1,39 @@
+# Skill garden.
+#
+# status is deliberately a state, not a percentage. "Go 85%" would be
+# invented; "在用 / 在学 / 想学" is checkable and still reads as progress.
+#   using   — 手上项目正在用
+#   learning— 正在学，还不敢说熟
+#   next    — 排在后面，还没开始
+#
+# ink drives the card colour: blue | coral | matcha
+
+- group: Backend
+  ink: blue
+  note: 主要精力都在这里
+  items:
+    - { name: "Go", status: using }
+    - { name: "Gin", status: using }
+    - { name: "GORM", status: using }
+    - { name: "REST API", status: using }
+    - { name: "JWT / bcrypt", status: using }
+    - { name: "gRPC", status: next }
+
+- group: Data
+  ink: coral
+  note: 从"能查出来"到"查得快"
+  items:
+    - { name: "PostgreSQL", status: using }
+    - { name: "Redis", status: learning }
+    - { name: "索引与执行计划", status: learning }
+    - { name: "事务与隔离级别", status: learning }
+
+- group: Ops
+  ink: matcha
+  note: 让代码能自己跑起来
+  items:
+    - { name: "Linux", status: learning }
+    - { name: "Docker", status: learning }
+    - { name: "Nginx", status: learning }
+    - { name: "GitHub Actions", status: using }
+    - { name: "Kubernetes", status: next }

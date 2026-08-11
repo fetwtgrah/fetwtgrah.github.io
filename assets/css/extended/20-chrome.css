@@ -1,0 +1,177 @@
+/* ============================================================
+   20-chrome.css — header, nav, footer, scroll-to-top
+
+   Styled entirely through the theme's own markup. No partial
+   override, so the theme keeps ownership of the theme-toggle
+   script and the language menu.
+   ============================================================ */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 2px solid var(--ink);
+}
+
+.header-nav {
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding: var(--s-3) var(--shell-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-5);
+}
+
+/* --- Wordmark ---------------------------------------------
+   The name sits in a blue ink block. On hover the block
+   shifts a hair off-register — the press motif, at nav size. */
+/* Fills that carry paper text use the -deep cuts: the bright inks
+   only reach 3.5:1 (blue) and 2.6:1 (coral) against paper. */
+.logo a {
+    font-family: var(--font-display);
+    font-size: var(--t-md);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    background: var(--blue-deep);
+    padding: 0.14em 0.5em 0.2em;
+    border-radius: var(--r-sm);
+    display: inline-block;
+    transition: transform var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
+}
+
+.logo a:hover {
+    background: var(--coral-deep);
+    transform: translate(-1.5px, -1.5px);
+}
+
+[data-theme="dark"] .logo a {
+    color: var(--paper);
+}
+
+.logo-switches {
+    margin-inline-start: var(--s-3);
+}
+
+.theme-toggle {
+    color: var(--ink-soft);
+    display: inline-flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: var(--r-sm);
+    transition: color var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
+}
+
+.theme-toggle:hover {
+    color: var(--coral-deep);
+    background: var(--coral-wash);
+}
+
+/* --- Menu -------------------------------------------------
+   Current page is marked with a coral rule under the label:
+   the ink stroke you'd draw next to where you are. */
+#menu {
+    display: flex;
+    align-items: center;
+    gap: var(--s-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    row-gap: var(--s-2);
+}
+
+#menu li {
+    margin: 0;
+}
+
+#menu a {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    font-weight: 700;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0.5em 0.7em;
+    border-radius: var(--r-sm);
+    display: inline-block;
+    transition: color var(--dur) var(--ease),
+                background-color var(--dur) var(--ease);
+}
+
+#menu a:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--blue) 14%, transparent);
+}
+
+#menu a span.active {
+    color: var(--ink);
+    border-bottom: 2.5px solid var(--coral);
+    padding-bottom: 3px;
+}
+
+/* --- Footer -----------------------------------------------
+   Theme markup is a flat run of spans separated by "·", so
+   center it and let it recede. Nothing here competes. */
+.footer {
+    max-width: var(--shell);
+    margin: var(--s-9) auto 0;
+    padding: var(--s-6) var(--shell-pad) var(--s-7);
+    border-top: 2px solid var(--rule);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    text-align: center;
+}
+
+.footer a {
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule-strong);
+    transition: color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease);
+}
+
+.footer a:hover {
+    color: var(--coral-deep);
+    border-bottom-color: var(--coral);
+}
+
+/* --- Scroll to top ---------------------------------------- */
+.top-link {
+    background: var(--blue-deep);
+    color: var(--paper);
+    border-radius: var(--r-sm);
+    border: 2px solid var(--ink);
+    padding: 10px 8px;
+    transition: background-color var(--dur) var(--ease),
+                transform var(--dur) var(--ease);
+}
+
+.top-link:hover {
+    background: var(--coral-deep);
+    transform: translateY(-2px);
+}
+
+.top-link svg {
+    fill: none;
+    stroke: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo a,
+    .top-link {
+        transition: background-color var(--dur) var(--ease);
+    }
+    .logo a:hover,
+    .top-link:hover {
+        transform: none;
+    }
+}

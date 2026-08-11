@@ -1,0 +1,278 @@
+{{- /* Homepage — takes over from the theme's list.html.
+
+   Hugo resolves layouts/index.html ahead of the theme's list.html for
+   the home page, so the home_info + paginator structure is bypassed
+   entirely. themes/PaperMod is untouched.
+
+   Sections: hero · about · skills · projects · notes · timeline
+*/ -}}
+{{ define "main" }}
+
+{{- /* ─────────────────────────────────────────────────────────
+   HERO — full-bleed, 7fr/5fr asymmetric
+
+   The signature: the portrait is printed as two spot plates,
+   blue and coral, multiplied over each other. They land
+   off-register and slide into alignment once on load — a press
+   finding its registration. Whole page has exactly one
+   performative motion, and this is it.
+   ───────────────────────────────────────────────────────── */ -}}
+{{- with site.Params.homeInfoParams }}
+<section class="hero">
+  <div class="hero-grid shell">
+
+    <div class="hero-text">
+      <p class="ink-label hero-eyebrow">{{ $.Site.Params.heroEyebrow | default "Developer notebook" }}</p>
+
+      <h1 class="hero-name">{{ .Title | markdownify }}</h1>
+
+      <p class="hero-role">{{ .Subtitle | markdownify }}</p>
+
+      <div class="hero-bio">{{ .Content | markdownify }}</div>
+
+      <div class="hero-now">
+        <span class="hero-now-label">
+          <span class="status-pip" data-status="now" aria-hidden="true"></span>
+          正在学
+        </span>
+        <span class="hero-now-list">Gin 分层实践 · PostgreSQL 执行计划</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="ink-btn" href="{{ "posts/" | absLangURL }}">读我的笔记</a>
+        {{- range site.Params.socialIcons }}
+        {{- if eq .name "github" }}
+        <a class="ink-btn is-ghost" href="{{ .url }}" target="_blank" rel="noopener me">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C16.3 5 17.3 5.3 17.3 5.3c.6 1.5.2 2.7.1 3a4.6 4.6 0 0 1 1.2 3.2c0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/>
+          </svg>
+          GitHub
+        </a>
+        {{- end }}
+        {{- end }}
+      </div>
+    </div>
+
+    <div class="hero-plate-wrap">
+      <figure class="plate">
+        {{- $avatar := resources.Get "avatar.jpg" }}
+        {{- if $avatar }}
+        {{- $img := $avatar.Fill "440x440 Center q88" }}
+        <div class="avatar-frame">
+          <img class="avatar-img" src="{{ $img.RelPermalink }}"
+               width="{{ $img.Width }}" height="{{ $img.Height }}"
+               alt="{{ .Title | plainify }} 的头像" />
+        </div>
+        {{- else }}
+        <div class="avatar-frame">
+          <span class="avatar-fallback" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </span>
+        </div>
+        {{- end }}
+      </figure>
+    </div>
+
+  </div>
+</section>
+{{- end }}
+
+<hr class="ink-rule shell-rule" />
+
+{{- /* ─────────────────────────────────────────────────────────
+   ABOUT — 5fr/7fr, reversed from the hero so the eye
+   crosses the page rather than settling into a column.
+   ───────────────────────────────────────────────────────── */ -}}
+<section class="band shell" id="about">
+  <div class="about-split">
+    <header class="band-head">
+      <p class="ink-label">关于</p>
+      <h2 class="band-title">我在做什么</h2>
+    </header>
+    <div class="about-body">
+      <p>我是 Fresh，软件工程在读，主要写后端。喜欢把一个东西拆到能看懂每一层为止 —— 从一条 SQL 怎么被执行，到一个请求怎么穿过中间件。</p>
+      <p>这个博客不是作品集橱窗，是一个还在长的笔记库：学到的、踩到的、想明白的，都往这里放。写下来才算真的学会。</p>
+      <a class="ink-link" href="{{ "about/" | absLangURL }}">完整介绍</a>
+    </div>
+  </div>
+</section>
+
+{{- /* ─────────────────────────────────────────────────────────
+   SKILL GARDEN — data/skills.yaml
+
+   Status labels instead of progress bars: a percentage would be
+   invented, "在用 / 在学 / 想学" is checkable.
+   ───────────────────────────────────────────────────────── */ -}}
+{{- with hugo.Data.skills }}
+<section class="band shell" id="skills">
+  <header class="band-head is-wide">
+    <p class="ink-label">技术栈</p>
+    <h2 class="band-title">手上的工具</h2>
+    <p class="band-note">没有百分比 —— 只标真实状态。</p>
+  </header>
+
+  <div class="skill-grid">
+    {{- range . }}
+    <article class="skill-card" data-ink="{{ .ink }}">
+      <h3 class="skill-group">{{ .group }}</h3>
+      {{- with .note }}<p class="skill-note">{{ . }}</p>{{ end }}
+      <ul class="skill-list">
+        {{- range .items }}
+        <li class="skill-item" data-status="{{ .status }}">
+          <span class="status-pip" data-status="{{ .status }}" aria-hidden="true"></span>
+          <span class="skill-name">{{ .name }}</span>
+          <span class="skill-state">
+            {{- if eq .status "using" }}在用
+            {{- else if eq .status "learning" }}在学
+            {{- else }}想学{{ end -}}
+          </span>
+        </li>
+        {{- end }}
+      </ul>
+    </article>
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+
+{{- /* ─────────────────────────────────────────────────────────
+   PROJECTS — data/projects.yaml
+   Second card drops 24px to break the baseline.
+   ───────────────────────────────────────────────────────── */ -}}
+{{- with hugo.Data.projects }}
+<section class="band shell" id="projects">
+  <header class="band-head is-wide">
+    <p class="ink-label">项目</p>
+    <h2 class="band-title">我做过的东西</h2>
+  </header>
+
+  <div class="project-grid">
+    {{- range $i, $p := . }}
+    <article class="project-card">
+      <div class="project-top">
+        <h3 class="project-name">{{ $p.name }}</h3>
+        {{- with $p.status }}
+        <span class="chip" data-ink="{{ if eq . "completed" }}matcha{{ else }}coral{{ end }}">
+          {{ if eq . "completed" }}已完成{{ else }}进行中{{ end }}
+        </span>
+        {{- end }}
+      </div>
+
+      <p class="project-desc">{{ $p.description }}</p>
+
+      {{- with $p.role }}
+      <p class="project-role"><span class="ink-label">我负责</span>{{ . }}</p>
+      {{- end }}
+
+      <div class="project-tech">
+        {{- range $p.tech }}<span class="chip">{{ . }}</span>{{ end }}
+      </div>
+
+      {{- with $p.github }}
+      <a class="ink-link project-link" href="{{ . }}" target="_blank" rel="noopener">
+        看源码
+      </a>
+      {{- end }}
+    </article>
+    {{- end }}
+  </div>
+
+  <p class="band-more">
+    <a class="ink-link" href="{{ "projects/" | absLangURL }}">全部项目</a>
+  </p>
+</section>
+{{- end }}
+
+{{- /* ─────────────────────────────────────────────────────────
+   NOTES — one lead note + the rest stacked beside it
+   ───────────────────────────────────────────────────────── */ -}}
+{{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if $posts }}
+<section class="band shell" id="notes">
+  <header class="band-head is-wide">
+    <p class="ink-label">笔记</p>
+    <h2 class="band-title">最近写的</h2>
+    <p class="band-note">共 {{ len $posts }} 篇，还在加。</p>
+  </header>
+
+  <div class="notes-layout">
+    {{- range first 1 $posts }}
+    <article class="note note-lead">
+      <p class="note-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+        {{- if .ReadingTime }}<span class="note-dot">·</span>{{ .ReadingTime }} 分钟{{ end }}
+      </p>
+      <h3 class="note-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{- with .Summary }}
+      <p class="note-excerpt">{{ . | plainify | truncate 150 }}</p>
+      {{- end }}
+      {{- with .Params.tags }}
+      <div class="note-tags">
+        {{- range first 4 . }}
+        <a class="chip" href="{{ (urlize (printf "tags/%s" .)) | absLangURL }}">{{ . }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </article>
+    {{- end }}
+
+    {{- $rest := after 1 $posts }}
+    {{- if $rest }}
+    <div class="notes-stack">
+      {{- range first 3 $rest }}
+      <article class="note note-small">
+        <p class="note-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+          {{- if .ReadingTime }}<span class="note-dot">·</span>{{ .ReadingTime }} 分钟{{ end }}
+        </p>
+        <h3 class="note-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      </article>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
+
+  <p class="band-more">
+    <a class="ink-link" href="{{ "posts/" | absLangURL }}">全部笔记</a>
+  </p>
+</section>
+{{- end }}
+
+{{- /* ─────────────────────────────────────────────────────────
+   TIMELINE — data/timeline.yaml
+   Ordered content, so an ink track carries the sequence; the
+   pip carries the state, which is the part worth reading.
+   ───────────────────────────────────────────────────────── */ -}}
+{{- with hugo.Data.timeline }}
+<section class="band shell" id="path">
+  <header class="band-head is-wide">
+    <p class="ink-label">学习路线</p>
+    <h2 class="band-title">走到哪了</h2>
+  </header>
+
+  <ol class="path">
+    {{- range . }}
+    <li class="path-step" data-status="{{ .status }}">
+      <span class="path-pip" aria-hidden="true"></span>
+      <div class="path-body">
+        <h3 class="path-title">
+          {{ .title }}
+          <span class="path-state">
+            {{- if eq .status "done" }}已完成
+            {{- else if eq .status "now" }}进行中
+            {{- else }}计划中{{ end -}}
+          </span>
+        </h3>
+        <p class="path-desc">{{ .desc }}</p>
+      </div>
+    </li>
+    {{- end }}
+  </ol>
+</section>
+{{- end }}
+
+{{ end }}

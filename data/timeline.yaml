@@ -1,0 +1,30 @@
+# Learning path. Mirrors content/about.md so the two never disagree.
+#
+# This list IS ordered — each step leans on the one before it — but the
+# information a reader needs is the state, not the ordinal. So it carries
+# status, not 01 / 02 / 03.
+#   done · now · planned
+
+- title: "Java 基础"
+  status: done
+  desc: "面向对象、集合框架、多线程与网络编程。第一门认真学的语言。"
+
+- title: "Go"
+  status: done
+  desc: "语法、并发模型、标准库。习惯了显式处理错误之后就回不去了。"
+
+- title: "Gin"
+  status: now
+  desc: "RESTful 接口设计、中间件、项目分层。UserSystem 就是这一步的产物。"
+
+- title: "PostgreSQL"
+  status: now
+  desc: "建模、查询优化、索引设计、事务管理。正在补执行计划这块。"
+
+- title: "Docker"
+  status: planned
+  desc: "容器化部署、多阶段构建、Compose 编排。"
+
+- title: "Linux 与部署"
+  status: planned
+  desc: "系统管理、Shell、进程与网络调优，把服务真正放到机器上。"
