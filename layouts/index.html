@@ -95,7 +95,7 @@
     </header>
     <div class="about-body">
       <p>我是 Fresh，软件工程在读，主要写后端。喜欢把一个东西拆到能看懂每一层为止 —— 从一条 SQL 怎么被执行，到一个请求怎么穿过中间件。</p>
-      <p>这个博客不是作品集橱窗，是一个还在长的笔记库：学到的、踩到的、想明白的，都往这里放。写下来才算真的学会。</p>
+      <p>这个博客作为一个作品集橱窗👀 ps:希望能写出成熟的作品</p>
       <a class="ink-link" href="{{ "about/" | absLangURL }}">完整介绍</a>
     </div>
   </div>
@@ -135,6 +135,29 @@
       </ul>
     </article>
     {{- end }}
+  </div>
+</section>
+{{- end }}
+
+{{- /* ─────────────────────────────────────────────────────────
+   TECH CLOUD — visual supplement to the skill cards
+   ───────────────────────────────────────────────────────── */ -}}
+{{- with hugo.Data.skills }}
+<section class="band shell" id="tech-cloud">
+  <header class="band-head is-wide">
+    <p class="ink-label">技术全景</p>
+    <h2 class="band-title">一眼看完</h2>
+  </header>
+
+  <div class="cloud-wrap">
+    <div class="cloud">
+      {{- range . }}
+      {{- $ink := .ink }}
+      {{- range .items }}
+      <span class="cloud-item" data-ink="{{ $ink }}" data-status="{{ .status }}">{{ .name }}</span>
+      {{- end }}
+      {{- end }}
+    </div>
   </div>
 </section>
 {{- end }}

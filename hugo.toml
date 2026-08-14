@@ -70,9 +70,8 @@ weight = 4
 # Hero copy. Title sets the display name, Subtitle the mono role line.
 [params.homeInfoParams]
   Title = "Fresh"
-  Subtitle = "软件工程在读 · 后端方向"
+  Subtitle = "HUST软件工程在读 · 后端/全栈方向"
   Content = """
-  写 Go 和 Gin，把数据放进 PostgreSQL，然后想办法让它跑得更快一点。
-  在这里记下每一次拆开一个系统之后学到的东西。
+  正在涨经验中...
   """
 
