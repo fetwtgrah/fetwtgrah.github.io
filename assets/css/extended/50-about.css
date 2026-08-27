@@ -14,14 +14,13 @@
     margin-top: var(--s-6);
 }
 
-/* --- Card -------------------------------------------------
-   Same ink frame as the homepage, so the two pages read as one
-   printed object. */
+/* --- Card ------------------------------------------------------
+   Flat hairline frame with a tinted title bar — a sidebar box
+   in a magazine column. */
 .about-card {
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    box-shadow: var(--cast);
+    background: var(--paper);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-sm);
     overflow: hidden;
 }
 
@@ -31,12 +30,12 @@
     gap: var(--s-3);
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: var(--track-label);
     text-transform: uppercase;
-    color: var(--blue-deep);
-    background: var(--blue-wash);
-    border-bottom: 2px solid var(--ink);
+    color: var(--cinnabar-deep);
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
     padding: var(--s-3) var(--s-5);
 }
 
@@ -70,11 +69,11 @@
 }
 
 .about-card-body li::marker {
-    color: var(--coral);
+    color: var(--cinnabar);
 }
 
-/* --- Current status --------------------------------------
-   The one matcha moment on the page, matching the hero's
+/* --- Current status ---------------------------------------------
+   The cinnabar moment on the page, matching the masthead's
    "正在学" line. */
 .status-card-inline {
     display: flex;
@@ -82,15 +81,14 @@
     gap: var(--s-3);
     margin-top: var(--s-5);
     padding: var(--s-3) var(--s-4);
-    background: color-mix(in srgb, var(--matcha) 13%, var(--paper));
-    border-inline-start: 4px solid var(--matcha);
-    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    background: var(--cinnabar-wash);
+    border-inline-start: 3px solid var(--cinnabar);
     font-size: var(--t-sm);
     color: var(--ink-soft);
 }
 
 .status-card-inline strong {
-    color: var(--matcha-deep);
+    color: var(--cinnabar-deep);
     font-family: var(--font-label);
     font-size: var(--t-xs);
     letter-spacing: 0.06em;
@@ -98,18 +96,15 @@
 }
 
 .status-dot {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     flex: 0 0 auto;
-    border-radius: 50%;
-    background: var(--matcha);
-    border: 1.5px solid var(--ink);
+    background: var(--cinnabar);
 }
 
-/* --- Timeline --------------------------------------------
-   Same dashed ink track as the homepage path, same state
-   colours. Ordered content, state-encoded dots — no 01/02/03.
-   ---------------------------------------------------------- */
+/* --- Timeline ----------------------------------------------------
+   Same hairline track and square pips as the homepage path —
+   the two tell one chronicle. */
 .timeline {
     position: relative;
     padding-left: 0;
@@ -118,15 +113,11 @@
 .timeline::before {
     content: "";
     position: absolute;
-    left: 6px;
+    left: 5px;
     top: 8px;
     bottom: 8px;
-    width: 2px;
-    background: repeating-linear-gradient(
-        to bottom,
-        var(--rule-strong) 0 6px,
-        transparent 6px 11px
-    );
+    width: 1px;
+    background: var(--rule-strong);
 }
 
 .timeline-item {
@@ -142,26 +133,27 @@
 }
 
 .timeline-dot {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     margin-top: 6px;
-    border-radius: 50%;
-    border: 2.5px solid var(--ink);
+    border: 2px solid var(--ink);
     background: var(--paper);
     z-index: 1;
 }
 
 .timeline-dot.done {
-    background: var(--matcha);
+    background: var(--ink);
 }
 
 .timeline-dot.current {
-    background: var(--coral);
-    box-shadow: 0 0 0 5px var(--coral-wash);
+    background: var(--cinnabar);
+    border-color: var(--cinnabar);
+    box-shadow: 0 0 0 4px var(--cinnabar-wash);
 }
 
 .timeline-dot.future {
     background: var(--paper);
+    border-color: var(--rule-strong);
 }
 
 .timeline-title {
@@ -181,7 +173,8 @@
     color: var(--ink-soft);
 }
 
-/* --- Tech badges ----------------------------------------- */
+/* --- Tech badges ---------------------------------------------------
+   Hairline chips, same cut as the tags everywhere else. */
 .tech-badges {
     display: flex;
     flex-wrap: wrap;
@@ -194,14 +187,13 @@
     font-size: var(--t-xs);
     letter-spacing: 0.06em;
     padding: 0.44em 0.7em;
-    border: 1.5px solid var(--blue);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
-    background: var(--blue-wash);
-    color: var(--blue-deep);
+    color: var(--ink-soft);
 }
 
-/* The Jobs pull-quote at the end of about.md — let it sit
-   apart from the cards rather than inside the flow. */
+/* The Jobs pull-quote at the end of about.md — set in the
+   display serif so it closes the page like a parting line. */
 .post-content > blockquote:last-child {
     margin-top: var(--s-8);
     font-family: var(--font-display);

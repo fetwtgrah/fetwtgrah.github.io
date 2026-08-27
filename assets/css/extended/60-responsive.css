@@ -6,7 +6,9 @@
    Breakpoints: 1024 · 768 · 480
    ============================================================ */
 
-/* --- Tablet / small laptop -------------------------------- */
+/* --- Tablet / small laptop -------------------------------------
+   Masthead narrows; the three skill columns go to two, with
+   the last taking the full row. */
 @media (max-width: 1024px) {
     :root {
         --t-3xl: 2.5rem;
@@ -14,94 +16,74 @@
         --section-y: clamp(3rem, 7vw, 4.5rem);
     }
 
-    .hero-grid {
+    .masthead-body {
         grid-template-columns: 6fr 5fr;
         gap: var(--s-6);
     }
 
-    /* Third skill card would be squeezed; give it the full row
-       and let the first two split above it. */
     .skill-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .skill-grid > .skill-card:last-child {
+    .skill-grid > .skill-col:last-child {
         grid-column: 1 / -1;
-    }
-
-    .notes-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .notes-stack {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--s-4);
     }
 }
 
-/* --- Mobile ----------------------------------------------
-   Single column throughout. The asymmetry and the broken
-   baseline are desktop devices — on one column they read as
-   misalignment, not intent, so they come off.
-   -------------------------------------------------------- */
+/* --- Mobile ------------------------------------------------------
+   Single column throughout. The masthead keeps its order —
+   name first, portrait after: a cover leads with its title.  */
 @media (max-width: 768px) {
     :root {
         --t-2xl: 1.9rem;
         --t-xl: 1.55rem;
-        --misregister: 4px;
     }
 
-    .hero {
-        padding-block: var(--s-7) var(--s-8);
+    .masthead {
+        padding-block: var(--s-6) var(--s-8);
     }
 
-    /* Portrait first: the signature is the strongest thing on
-       the page and shouldn't be scrolled past to reach. */
-    .hero-grid {
+    .masthead-body {
         grid-template-columns: 1fr;
         gap: var(--s-7);
     }
 
-    .hero-plate-wrap {
-        order: -1;
+    .masthead-figure {
+        width: min(240px, 62vw);
+        justify-self: start;
     }
 
-    .plate {
-        width: min(260px, 62vw);
-    }
-
-    .hero-actions .ink-btn {
+    .masthead-actions .btn {
         flex: 1 1 auto;
         justify-content: center;
     }
 
-    .about-split,
-    .project-grid {
+    .about-split {
         grid-template-columns: 1fr;
-        gap: var(--s-6);
-    }
-
-    /* Drop the deliberate offset — no second column to break
-       against. */
-    .project-grid > .project-card:nth-child(even) {
-        margin-top: 0;
+        gap: var(--s-5);
     }
 
     .skill-grid {
         grid-template-columns: 1fr;
     }
 
-    .skill-grid > .skill-card:last-child {
+    .skill-grid > .skill-col:last-child {
         grid-column: auto;
-    }
-
-    .notes-stack {
-        grid-template-columns: 1fr;
     }
 
     .band-head {
         margin-bottom: var(--s-6);
+    }
+
+    /* Narrow rows: the leader can shrink to a dash, the date
+       drops under the title only when it truly doesn't fit. */
+    .toc-row {
+        flex-wrap: wrap;
+        gap: var(--s-2) var(--s-4);
+    }
+
+    .toc-leader {
+        min-width: 1.25rem;
     }
 
     /* about.md and the homepage path share this geometry. */
@@ -113,23 +95,6 @@
     .paginav {
         grid-template-columns: 1fr;
     }
-
-    .toc {
-        transform: none;
-    }
-
-    /* Card frames inset by --shell-pad on desktop; on mobile the
-       gutter is the frame. */
-    .post-entry .entry-header,
-    .post-entry .entry-content,
-    .post-entry .entry-footer,
-    .post-entry .entry-cover,
-    .first-entry .entry-header,
-    .first-entry .entry-content,
-    .first-entry .entry-footer,
-    .first-entry .entry-cover {
-        padding-inline: var(--s-5);
-    }
 }
 
 @media (max-width: 480px) {
@@ -138,18 +103,18 @@
         --t-base: 1rem;
     }
 
-    .hero-name {
+    .dateline {
+        font-size: 0.6875rem;
+    }
+
+    .masthead-name {
         font-size: clamp(2.4rem, 13vw, 3rem);
     }
 
-    .plate-caption {
-        left: 0;
-        bottom: -0.6rem;
-    }
-
-    .project-card,
-    .note-lead {
-        padding: var(--s-5);
+    /* The drop cap leaves room for narrow measures. */
+    .about-body > p:first-of-type::first-letter,
+    .post-single .post-content > p:first-of-type::first-letter {
+        font-size: 2.6em;
     }
 
     .footer {
@@ -157,22 +122,14 @@
     }
 }
 
-/* --- Coarse pointers -------------------------------------
-   Hover-only affordances don't exist on touch; make sure the
-   press-shift never sticks after a tap.
-   -------------------------------------------------------- */
+/* --- Coarse pointers ---------------------------------------------
+   Touch has no hover; make sure nothing waits on one, and the
+   nav keeps 44x44 targets. */
 @media (hover: none) {
-    .skill-card:hover,
-    .project-card:hover,
-    .note:hover,
-    .post-entry:hover,
-    .terms-tags a:hover,
-    .ink-btn:hover {
-        transform: none;
-        box-shadow: var(--cast);
+    .masthead-figure .figure-img {
+        filter: none;
     }
 
-    /* 44x44 minimum touch target on nav items. */
     #menu a {
         min-height: 44px;
         display: inline-flex;
@@ -186,18 +143,20 @@
     }
 }
 
-/* --- Print ----------------------------------------------- */
+/* --- Print ---------------------------------------------------------
+   A magazine should survive being printed. */
 @media print {
-    body::before,
     .header,
     .footer,
-    .top-link,
-    .hero::before,
-    .hero::after {
+    .top-link {
         display: none;
     }
 
     .post-single {
         padding-top: 0;
+    }
+
+    .figure-img {
+        filter: none;
     }
 }

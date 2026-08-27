@@ -24,44 +24,55 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* Grain over the whole sheet. Fixed so it reads as paper the
-   page is printed on, not as a texture that scrolls with it. */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: var(--grain);
-    background-repeat: repeat;
-    opacity: 0.5;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: var(--ink-blend);
-}
-
 /* --- Headings ---------------------------------------------
-   Display face is Latin-only by design and used sparingly:
-   section titles and the name. Everything else is body. */
+   Serif display face: Fraunces for Latin, 宋体 for Chinese.
+   Used for every title on the page — that is the magazine.   */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--ink);
     line-height: var(--lh-tight);
     font-weight: 700;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.01em;
 }
 
-/* --- Utility type classes --------------------------------- */
-.ink-label {
+/* --- Kicker ------------------------------------------------
+   The department marker: red square bullet, mono caps, and a
+   hairline running out to the right edge. Sections put their
+   Chinese name first, the English caps after it.             */
+.kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: var(--track-label);
     text-transform: uppercase;
-    color: var(--blue-deep);
+    color: var(--cinnabar);
+    margin: 0;
+}
+
+.kicker::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    flex: 0 0 auto;
+    background: var(--cinnabar);
+}
+
+.kicker::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--rule);
+}
+
+.kicker-en {
+    color: var(--ink-faint);
 }
 
 /* --- Links ------------------------------------------------
-   Body links get an ink underline that thickens on hover —
-   a pen going over the same line twice. */
+   Body links are cinnabar underlined; hover re-inks the line
+   at full strength. */
 a {
     color: inherit;
     text-decoration: none;
@@ -70,11 +81,11 @@ a {
 .post-content a,
 .about-card-body a,
 .footer-note a {
-    color: var(--blue-deep);
+    color: var(--cinnabar-deep);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    text-decoration-color: color-mix(in srgb, var(--blue) 45%, transparent);
+    text-decoration-color: color-mix(in srgb, var(--cinnabar) 45%, transparent);
     transition: text-decoration-thickness var(--dur) var(--ease),
                 text-decoration-color var(--dur) var(--ease);
 }
@@ -82,15 +93,15 @@ a {
 .post-content a:hover,
 .about-card-body a:hover,
 .footer-note a:hover {
-    text-decoration-thickness: 3px;
-    text-decoration-color: var(--coral);
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--cinnabar);
 }
 
-/* --- Focus ------------------------------------------------
-   Coral against every ground in both modes, and it never
+/* --- Focus -------------------------------------------------
+   Cinnabar reads on every ground in both modes, and it never
    gets removed. */
 :focus-visible {
-    outline: 2px solid var(--coral);
+    outline: 2px solid var(--cinnabar);
     outline-offset: 3px;
     border-radius: var(--r-sm);
 }
@@ -100,14 +111,14 @@ a {
 }
 
 ::selection {
-    background: var(--blue-deep);
+    background: var(--cinnabar);
     color: var(--paper);
 }
 
-/* --- Shell -----------------------------------------------
+/* --- Shell --------------------------------------------------
    PaperMod clamps .main to 720px, which is right for reading
-   and wrong for a portfolio. Release it, then re-clamp the
-   prose column on pages that are actually prose (40-post).  */
+   and wrong for a front page. Release it, then re-clamp the
+   prose column on pages that are actually prose (40-post).    */
 .main {
     max-width: 100%;
     width: 100%;
@@ -124,42 +135,26 @@ a {
     padding-inline: var(--shell-pad);
 }
 
-/* --- Hand-cut rule ---------------------------------------
-   A divider drawn with three offset ink strokes instead of a
-   1px border: registration is never perfect on a Riso. */
-.ink-rule {
-    position: relative;
-    height: 3px;
+/* --- Masthead rule ------------------------------------------
+   The thick-over-thin double rule that frames a masthead.
+   .is-flip mirrors it (thin over thick) to close the frame.   */
+.rule-double {
+    height: 7px;
     border: 0;
     margin: 0;
-    background: var(--rule);
+    background:
+        linear-gradient(var(--ink), var(--ink)) left top / 100% 3px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) left bottom / 100% 1px no-repeat;
 }
 
-.ink-rule::before,
-.ink-rule::after {
-    content: "";
-    position: absolute;
-    height: 2px;
-    top: -2px;
+.rule-double.is-flip {
+    background:
+        linear-gradient(var(--ink), var(--ink)) left top / 100% 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) left bottom / 100% 3px no-repeat;
 }
 
-.ink-rule::before {
-    left: 0;
-    width: 38%;
-    background: var(--blue);
-    opacity: 0.7;
-}
-
-.ink-rule::after {
-    right: 0;
-    width: 22%;
-    top: 3px;
-    background: var(--coral);
-    opacity: 0.55;
-}
-
-/* --- Ink chip --------------------------------------------
-   Shared tag/pill. Used by hero, tech cards, notes, about. */
+/* --- Chip ---------------------------------------------------
+   A hairline tag: 1px frame, no fill, square corners. */
 .chip {
     display: inline-flex;
     align-items: center;
@@ -169,66 +164,59 @@ a {
     letter-spacing: 0.06em;
     line-height: 1;
     padding: 0.44em 0.7em;
-    border: 1.5px solid var(--rule-strong);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
-    background: color-mix(in srgb, var(--paper) 60%, transparent);
     color: var(--ink-soft);
     white-space: nowrap;
 }
 
-.chip[data-ink="blue"] {
-    border-color: var(--blue);
-    background: var(--blue-wash);
-    color: var(--blue-deep);
+a.chip {
+    transition: border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
 }
 
-.chip[data-ink="coral"] {
-    border-color: var(--coral);
-    background: var(--coral-wash);
-    color: var(--coral-deep);
+a.chip:hover {
+    border-color: var(--cinnabar);
+    color: var(--cinnabar-deep);
 }
 
-.chip[data-ink="matcha"] {
-    border-color: var(--matcha);
-    background: color-mix(in srgb, var(--matcha) 16%, var(--paper));
-    color: var(--matcha-deep);
-}
-
-/* --- Text link with a moving arrow ------------------------ */
-.ink-link {
+/* --- Arrow link ---------------------------------------------
+   Mono text link with a moving arrow; the quiet way out of a
+   section ("全部笔记 →"). */
+.arrow-link {
     display: inline-flex;
     align-items: center;
     gap: 0.45em;
     font-family: var(--font-label);
     font-size: var(--t-sm);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.05em;
-    color: var(--blue-deep);
-    border-bottom: 2px solid transparent;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule-strong);
     padding-bottom: 2px;
     transition: color var(--dur) var(--ease),
                 border-color var(--dur) var(--ease);
 }
 
-.ink-link::after {
+.arrow-link::after {
     content: "→";
     transition: transform var(--dur) var(--ease);
 }
 
-.ink-link:hover {
-    color: var(--coral-deep);
-    border-bottom-color: var(--coral);
+.arrow-link:hover {
+    color: var(--cinnabar-deep);
+    border-bottom-color: var(--cinnabar);
 }
 
-.ink-link:hover::after {
+.arrow-link:hover::after {
     transform: translateX(4px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ink-link::after {
+    .arrow-link::after {
         transition: none;
     }
-    .ink-link:hover::after {
+    .arrow-link:hover::after {
         transform: none;
     }
 }

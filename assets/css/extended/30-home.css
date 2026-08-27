@@ -1,33 +1,28 @@
 /* ============================================================
-   30-home.css — homepage sections
+   30-home.css — homepage sections (cover + departments)
+
+   The page reads as the cover and contents of a one-person
+   magazine: masthead → 卷首语 → 专栏 → 专题 → 名录 → 纪事.
 
    Section rhythm is owned by ONE selector (.band) so nothing
-   further down cancels it. Variants adjust with data-attrs or
-   .is-* modifiers at the same specificity, never by retargeting
-   padding from a second place.
+   further down cancels it. Every band is separated by the same
+   hairline — departments in an issue, not cards on a board.
    ============================================================ */
 
-/* --- Section shell ---------------------------------------- */
+/* --- Section shell ------------------------------------------ */
 .band {
     padding-block: var(--section-y);
-}
-
-.shell-rule {
-    max-width: var(--shell);
-    margin-inline: auto;
+    border-top: 1px solid var(--rule);
 }
 
 .band-head {
     margin-bottom: var(--s-7);
 }
 
-.band-head.is-wide {
-    max-width: 46ch;
-}
-
 .band-title {
     font-size: var(--t-2xl);
-    margin: var(--s-2) 0 0;
+    font-weight: 700;
+    margin: var(--s-3) 0 0;
 }
 
 .band-note {
@@ -41,253 +36,240 @@
 }
 
 /* ============================================================
-   HERO
+   MASTHEAD — the cover: dateline, the name in 900-weight
+   serif with its cinnabar full-stop, and the portrait printed
+   as a captioned figure. The double rules frame the block.
    ============================================================ */
 
-.hero {
-    position: relative;
-    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3.5rem, 8vw, 6rem);
-    overflow: hidden;
+.masthead {
+    padding-block: clamp(2.25rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
 }
 
-/* Two flat ink washes bleeding off the edges. Blurred colour
-   fields, no gradient ramp — closer to ink soaking paper. */
-.hero::before,
-.hero::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-    pointer-events: none;
-    z-index: 0;
+.dateline {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 var(--s-4);
 }
 
-.hero::before {
-    width: 34rem;
-    height: 24rem;
-    top: -8rem;
-    right: -6rem;
-    background: var(--blue);
-    opacity: 0.17;
-}
-
-.hero::after {
-    width: 22rem;
-    height: 18rem;
-    bottom: -7rem;
-    left: -5rem;
-    background: var(--coral);
-    opacity: 0.13;
-}
-
-.hero-grid {
-    position: relative;
-    z-index: 1;
+.masthead-body {
     display: grid;
     grid-template-columns: 7fr 5fr;
     gap: clamp(2rem, 5vw, var(--s-8));
     align-items: center;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
 }
 
-.hero-eyebrow {
-    margin: 0 0 var(--s-4);
-}
-
-.hero-name {
-    font-size: clamp(3rem, 8.5vw, var(--t-4xl));
-    line-height: 1.02;
+.masthead-name {
+    display: flex;
+    align-items: baseline;
+    gap: 0.18em;
+    font-size: clamp(3.2rem, 8.5vw, 4.6rem);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
     margin: 0;
-    letter-spacing: -0.03em;
 }
 
-/* The one place the coral ink touches the display type. */
-.hero-name::after {
-    content: ".";
-    color: var(--coral);
+/* The square full-stop — the one mark every title on this
+   page defers to. */
+.masthead-name::after {
+    content: "";
+    width: 0.15em;
+    height: 0.15em;
+    flex: 0 0 auto;
+    background: var(--cinnabar);
 }
 
-.hero-role {
-    font-family: var(--font-label);
-    font-size: var(--t-sm);
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--blue-deep);
-    margin: var(--s-4) 0 0;
+.masthead-role {
+    font-family: var(--font-display);
+    font-size: var(--t-md);
+    font-weight: 600;
     line-height: 1.6;
+    margin: var(--s-4) 0 0;
 }
 
-.hero-bio {
-    margin-top: var(--s-5);
-    max-width: 46ch;
+.masthead-bio {
+    margin-top: var(--s-4);
+    max-width: 50ch;
     color: var(--ink-soft);
 }
 
-.hero-bio p {
+.masthead-bio p {
     margin: 0;
 }
 
-.hero-bio strong {
+.masthead-bio strong {
     color: var(--ink);
     font-weight: 700;
 }
 
-/* --- Currently learning ----------------------------------
-   Reads as a line torn from a notebook and taped on: left ink
-   rule, matcha pip, mono label. */
-.hero-now {
+/* --- Currently learning --------------------------------------
+   A marginal note: cinnabar rule down the side, mono label.   */
+.masthead-now {
     margin-top: var(--s-6);
     padding-left: var(--s-4);
-    border-left: 3px solid var(--matcha);
+    border-left: 3px solid var(--cinnabar);
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: center;
     gap: var(--s-2) var(--s-4);
 }
 
-.hero-now-label {
+.masthead-now-label {
     display: inline-flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.6em;
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: var(--track-label);
     text-transform: uppercase;
-    color: var(--matcha-deep);
+    color: var(--cinnabar-deep);
 }
 
-.hero-now-list {
+.masthead-now-list {
     font-size: var(--t-sm);
     color: var(--ink-soft);
 }
 
-/* --- Buttons --------------------------------------------- */
-.hero-actions {
+/* --- Buttons --------------------------------------------------
+   Squared, flat, mono. Ink fill for the primary action;
+   outline for the ghost. Hover trades ink for cinnabar.      */
+.masthead-actions {
     margin-top: var(--s-6);
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-3);
 }
 
-.ink-btn {
+.btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.55em;
     font-family: var(--font-label);
     font-size: var(--t-sm);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.05em;
-    padding: 0.72em 1.15em;
-    border: 2px solid var(--ink);
+    padding: 0.7em 1.2em;
+    border: 1.5px solid var(--ink);
     border-radius: var(--r-sm);
-    background: var(--blue-deep);
+    background: var(--ink);
     color: var(--paper);
-    box-shadow: var(--cast);
     cursor: pointer;
-    transition: transform var(--dur) var(--ease),
-                box-shadow var(--dur) var(--ease),
-                background-color var(--dur) var(--ease);
+    transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
 }
 
-.ink-btn:hover {
-    background: var(--overprint);
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--rule-strong);
+.btn:hover {
+    background: var(--cinnabar);
+    border-color: var(--cinnabar);
+    color: var(--paper);
 }
 
-.ink-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 1px 1px 0 var(--rule-strong);
-}
-
-.ink-btn.is-ghost {
+.btn.is-ghost {
     background: transparent;
     color: var(--ink);
 }
 
-.ink-btn.is-ghost:hover {
-    background: var(--coral-wash);
-    color: var(--coral-deep);
+.btn.is-ghost:hover {
+    background: var(--cinnabar-wash);
+    border-color: var(--cinnabar);
+    color: var(--cinnabar-deep);
 }
 
-/* ============================================================
-   AVATAR — 圆形头像 + hover 旋转效果
-   ============================================================ */
-
-.hero-plate-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--s-6);
-}
-
-.plate {
-    position: relative;
-    width: min(340px, 78vw);
-    aspect-ratio: 1;
+/* --- The portrait as a magazine figure ------------------------
+   Thin ink frame with a plate margin, a mono caption below.
+   Nearly grainless print; full colour only under the reader.  */
+.masthead-figure {
+    justify-self: center;
     margin: 0;
+    width: min(320px, 100%);
 }
 
-/* 圆形头像容器 */
-.avatar-frame {
-    position: relative;
+.figure-frame {
+    border: 1.5px solid var(--ink);
+    padding: 6px;
+    background: var(--paper);
+}
+
+.figure-img {
     display: block;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border: 3px solid var(--blue-deep);
-    border-radius: 50%;
-    background: var(--paper-2);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transition: transform 0.6s var(--ease), box-shadow 0.3s var(--ease);
+    height: auto;
+    filter: grayscale(18%);
+    transition: filter 300ms var(--ease);
 }
 
-/* 头像图片 */
-.avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+.masthead-figure:hover .figure-img {
+    filter: none;
 }
 
-/* hover 时旋转一圈 */
-@media (hover: hover) {
-    .plate:hover .avatar-frame {
-        transform: rotate(360deg);
-        box-shadow: 0 12px 32px rgba(91, 127, 166, 0.25);
-    }
-}
-
-/* 后备头像图标 */
-.avatar-fallback {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+.figure-fallback {
+    aspect-ratio: 1;
     display: grid;
     place-items: center;
-    background: var(--blue-wash);
-    color: var(--blue-deep);
+    background: var(--paper-2);
+    color: var(--ink-faint);
 }
 
-.avatar-fallback svg {
+.figure-fallback svg {
     width: 40%;
     height: 40%;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .avatar-frame {
-        transition: box-shadow 0.3s var(--ease);
+.masthead-figure figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-3);
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-top: var(--s-2);
+}
+
+/* --- The one performative moment ------------------------------
+   On load the frame rules draw themselves and the name rises
+   into place — the page being made up. Once, then still.     */
+@media (prefers-reduced-motion: no-preference) {
+    .masthead .rule-double {
+        transform-origin: left center;
+        animation: rule-draw 650ms var(--ease) both;
     }
-    .plate:hover .avatar-frame {
-        transform: none;
+
+    .masthead .rule-double.is-flip {
+        animation-delay: 260ms;
+    }
+
+    .masthead-name {
+        animation: masthead-rise 600ms var(--ease) 120ms both;
+    }
+
+    .masthead-figure {
+        animation: masthead-rise 600ms var(--ease) 340ms both;
     }
 }
 
+@keyframes rule-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+@keyframes masthead-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+}
+
 /* ============================================================
-   ABOUT
+   卷首语 ABOUT — the editor's note, opened with a drop cap.
    ============================================================ */
 
 .about-split {
@@ -303,81 +285,78 @@
 
 .about-body p {
     margin: 0 0 var(--s-4);
-    max-width: 60ch;
+    max-width: 62ch;
 }
 
 .about-body p:last-of-type {
     margin-bottom: var(--s-5);
 }
 
+/* 首字下沉 — a cinnabar drop cap opens the issue. */
+.about-body > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 3.2em;
+    line-height: 0.95;
+    float: left;
+    padding: 0.05em 0.14em 0 0;
+    color: var(--cinnabar);
+}
+
 /* ============================================================
-   STATUS PIP — shared by hero, skills, path
+   STATUS PIP — square, shared by masthead, skills, path.
+   Filled ink = settled, cinnabar = live, hollow = queued.
    ============================================================ */
 
 .status-pip {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
     flex: 0 0 auto;
-    background: var(--ink-faint);
+    background: transparent;
     border: 1.5px solid var(--ink);
 }
 
 .status-pip[data-status="using"],
+.status-pip[data-status="done"] {
+    background: var(--ink);
+}
+
+.status-pip[data-status="learning"],
 .status-pip[data-status="now"] {
-    background: var(--matcha);
+    background: var(--cinnabar);
+    border-color: var(--cinnabar);
 }
 
-.status-pip[data-status="learning"] {
-    background: var(--coral);
-}
-
-.status-pip[data-status="next"] {
-    background: transparent;
+.status-pip[data-status="next"],
+.status-pip[data-status="planned"] {
+    border-color: var(--rule-strong);
 }
 
 /* ============================================================
-   SKILL GARDEN
+   名录 SKILLS — the contributors page: three ruled columns,
+   dotted leaders between names and their state. No cards.
    ============================================================ */
 
 .skill-grid {
     display: grid;
-    grid-template-columns: 1.15fr 1fr 1fr;
-    gap: var(--s-5);
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
     align-items: start;
 }
 
-.skill-card {
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    padding: var(--s-5);
-    box-shadow: var(--cast);
-    transition: transform var(--dur) var(--ease),
-                box-shadow var(--dur) var(--ease);
-}
-
-/* Each card carries its own ink as a top band. */
-.skill-card[data-ink="blue"] { border-top: 7px solid var(--blue); }
-.skill-card[data-ink="coral"] { border-top: 7px solid var(--coral); }
-.skill-card[data-ink="matcha"] { border-top: 7px solid var(--matcha); }
-
-.skill-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--rule-strong);
+.skill-col {
+    border-top: 3px solid var(--ink);
+    padding-top: var(--s-4);
 }
 
 .skill-group {
-    font-family: var(--font-label);
-    font-size: var(--t-sm);
+    font-size: var(--t-md);
     font-weight: 700;
-    letter-spacing: var(--track-label);
-    text-transform: uppercase;
     margin: 0;
 }
 
 .skill-note {
-    margin: var(--s-2) 0 var(--s-4);
+    margin: var(--s-2) 0 var(--s-3);
     font-size: var(--t-sm);
     color: var(--ink-soft);
 }
@@ -386,9 +365,6 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-1);
 }
 
 .skill-item {
@@ -396,7 +372,7 @@
     align-items: center;
     gap: var(--s-3);
     padding: var(--s-2) 0;
-    border-bottom: 1px dashed var(--rule);
+    border-bottom: 1px dotted var(--rule);
 }
 
 .skill-item:last-child {
@@ -405,7 +381,6 @@
 
 .skill-name {
     font-size: var(--t-sm);
-    font-weight: 500;
 }
 
 .skill-state {
@@ -416,208 +391,225 @@
     color: var(--ink-faint);
 }
 
-.skill-item[data-status="using"] .skill-state { color: var(--matcha-deep); }
-.skill-item[data-status="learning"] .skill-state { color: var(--coral-deep); }
+.skill-item[data-status="learning"] .skill-state {
+    color: var(--cinnabar);
+}
 
 .skill-item[data-status="next"] .skill-name {
     color: var(--ink-faint);
 }
 
 /* ============================================================
-   PROJECTS
+   专题 PROJECTS — feature stories: a thick top rule, the
+   state as a kicker, serif headline, plain hairline tags.
    ============================================================ */
 
-.project-grid {
+.feature-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--s-6);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
     align-items: start;
 }
 
-/* Break the baseline: the second card sits lower, the way two
-   sheets never stack square. */
-.project-grid > .project-card:nth-child(even) {
-    margin-top: var(--s-6);
-}
-
-.project-card {
+.feature {
+    border-top: 3px solid var(--ink);
+    padding-top: var(--s-4);
     display: flex;
     flex-direction: column;
     gap: var(--s-3);
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    padding: var(--s-6);
-    box-shadow: var(--cast);
-    transition: transform var(--dur) var(--ease),
-                box-shadow var(--dur) var(--ease);
+    transition: border-color var(--dur) var(--ease);
 }
 
-.project-card:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: var(--cast-blue);
+.feature:hover {
+    border-top-color: var(--cinnabar);
 }
 
-.project-top {
-    display: flex;
+.feature-status {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--s-3);
+    gap: 0.6em;
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-faint);
 }
 
-.project-name {
+.feature-status:has(.status-pip[data-status="now"]) {
+    color: var(--cinnabar-deep);
+}
+
+.feature-name {
     font-size: var(--t-lg);
+    font-weight: 700;
     margin: 0;
 }
 
-.project-desc {
+.feature-desc {
     margin: 0;
     color: var(--ink-soft);
     font-size: var(--t-sm);
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
-.project-role {
+.feature-role {
     margin: 0;
     font-size: var(--t-sm);
     color: var(--ink-soft);
-    padding-left: var(--s-4);
-    border-left: 2px solid var(--blue);
+    padding-left: var(--s-3);
+    border-left: 2px solid var(--cinnabar);
 }
 
-.project-role .ink-label {
+.feature-role .role-label {
     display: block;
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-faint);
     margin-bottom: 2px;
 }
 
-.project-tech {
+.feature-tech {
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2);
 }
 
-.project-link {
-    margin-top: auto;
+.feature-link {
+    margin-top: var(--s-1);
     align-self: flex-start;
 }
 
 /* ============================================================
-   NOTES
+   专栏 NOTES — the contents page. The latest note is the
+   cover story; the rest run as a table of contents, title to
+   date across a dotted leader, the way a magazine lists them.
    ============================================================ */
 
-.notes-layout {
-    display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: var(--s-6);
-    align-items: start;
+.cover-story {
+    border-top: 3px solid var(--ink);
+    padding-top: var(--s-5);
+    max-width: 56rem;
 }
 
-.note {
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    padding: var(--s-5);
-    transition: transform var(--dur) var(--ease),
-                box-shadow var(--dur) var(--ease);
+.cover-kicker {
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--cinnabar);
 }
 
-.note-lead {
-    box-shadow: var(--cast);
-    padding: var(--s-6);
+.cover-title {
+    font-size: clamp(1.6rem, 3.5vw, var(--t-2xl));
+    font-weight: 700;
+    line-height: var(--lh-snug);
+    margin: var(--s-3) 0 0;
 }
 
-.note:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: var(--cast-coral);
+.cover-title a {
+    transition: color var(--dur) var(--ease);
 }
 
-.notes-stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-4);
+.cover-title a:hover {
+    color: var(--cinnabar-deep);
 }
 
-.note-meta {
+.cover-meta {
     font-family: var(--font-label);
     font-size: var(--t-xs);
     letter-spacing: 0.06em;
     color: var(--ink-faint);
-    margin: 0 0 var(--s-3);
+    margin: var(--s-3) 0 0;
 }
 
-.note-dot {
+.cover-meta .meta-dot {
     margin-inline: 0.4em;
 }
 
-.note-title {
-    margin: 0;
-    font-size: var(--t-md);
-    line-height: var(--lh-snug);
-}
-
-.note-lead .note-title {
-    font-size: var(--t-xl);
-}
-
-.note-title a {
-    text-decoration: none;
-    background-image: linear-gradient(var(--coral), var(--coral));
-    background-repeat: no-repeat;
-    background-size: 0 2px;
-    background-position: 0 100%;
-    transition: background-size var(--dur) var(--ease);
-}
-
-.note-title a:hover {
-    background-size: 100% 2px;
-}
-
-.note-excerpt {
+.cover-excerpt {
     margin: var(--s-4) 0 0;
     color: var(--ink-soft);
-    font-size: var(--t-sm);
-    line-height: 1.75;
+    max-width: 62ch;
 }
 
-.note-tags {
-    margin-top: var(--s-5);
+.cover-tags {
+    margin-top: var(--s-4);
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2);
 }
 
-.note-tags .chip:hover {
-    border-color: var(--coral);
-    color: var(--coral-deep);
+.toc-list {
+    margin-top: var(--s-7);
+}
+
+.toc-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-4);
+    padding: var(--s-4) 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.toc-row:first-child {
+    border-top: 1px solid var(--rule);
+}
+
+.toc-row-title {
+    font-size: var(--t-md);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    margin: 0;
+}
+
+.toc-row-title a {
+    transition: color var(--dur) var(--ease);
+}
+
+.toc-row-title a:hover {
+    color: var(--cinnabar-deep);
+}
+
+.toc-leader {
+    flex: 1 1 auto;
+    min-width: 2rem;
+    border-bottom: 2px dotted var(--rule-strong);
+    transform: translateY(-0.35em);
+}
+
+.toc-date {
+    font-family: var(--font-label);
+    font-size: var(--t-xs);
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    white-space: nowrap;
 }
 
 /* ============================================================
-   LEARNING PATH
-
-   Ordered, so an ink track runs down the left to carry the
-   sequence. The pip carries state — the part worth reading.
+   纪事 PATH — a chronicle. The hairline track carries the
+   sequence; the square pip carries the state.
    ============================================================ */
 
 .path {
     list-style: none;
     margin: 0;
     padding: 0;
-    max-width: 68ch;
+    max-width: 70ch;
     position: relative;
 }
 
 .path::before {
     content: "";
     position: absolute;
-    left: 6px;
+    left: 5px;
     top: 8px;
     bottom: 8px;
-    width: 2px;
-    background: repeating-linear-gradient(
-        to bottom,
-        var(--rule-strong) 0 6px,
-        transparent 6px 11px
-    );
+    width: 1px;
+    background: var(--rule-strong);
 }
 
 .path-step {
@@ -633,27 +625,32 @@
 }
 
 .path-pip {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     margin-top: 7px;
-    border-radius: 50%;
-    border: 2.5px solid var(--ink);
+    border: 2px solid var(--ink);
     background: var(--paper);
     z-index: 1;
 }
 
 .path-step[data-status="done"] .path-pip {
-    background: var(--matcha);
+    background: var(--ink);
 }
 
 .path-step[data-status="now"] .path-pip {
-    background: var(--coral);
-    box-shadow: 0 0 0 5px var(--coral-wash);
+    background: var(--cinnabar);
+    border-color: var(--cinnabar);
+    box-shadow: 0 0 0 4px var(--cinnabar-wash);
+}
+
+.path-step[data-status="planned"] .path-pip {
+    border-color: var(--rule-strong);
 }
 
 .path-title {
     margin: 0;
     font-size: var(--t-md);
+    font-weight: 600;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -668,8 +665,9 @@
     color: var(--ink-faint);
 }
 
-.path-step[data-status="done"] .path-state { color: var(--matcha-deep); }
-.path-step[data-status="now"] .path-state { color: var(--coral-deep); }
+.path-step[data-status="now"] .path-state {
+    color: var(--cinnabar);
+}
 
 .path-desc {
     margin: var(--s-2) 0 0;
@@ -679,100 +677,4 @@
 
 .path-step[data-status="planned"] .path-title {
     color: var(--ink-soft);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .skill-card,
-    .project-card,
-    .note,
-    .ink-btn {
-        transition: box-shadow var(--dur) var(--ease);
-    }
-    .skill-card:hover,
-    .project-card:hover,
-    .note:hover,
-    .ink-btn:hover,
-    .ink-btn:active {
-        transform: none;
-    }
-}
-
-/* ============================================================
-   TECH CLOUD — visual supplement to skill cards
-
-   Placed after the skill cards section as a visual summary.
-   All tech items displayed as a scattered word cloud.
-   ============================================================ */
-.cloud-wrap {
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    padding: var(--s-7) var(--s-6);
-    box-shadow: var(--cast);
-}
-
-.cloud {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: var(--s-3) var(--s-4);
-}
-
-.cloud-item {
-    font-family: var(--font-display);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--ink-soft);
-    text-decoration: none;
-    transform: rotate(var(--tilt, 0deg));
-    transition: color var(--dur) var(--ease),
-                transform var(--dur) var(--ease);
-}
-
-/* Size tiers, cycled on a different period from the tilt
-   so the two never line up into a visible grid. */
-.cloud-item:nth-child(5n+1) { font-size: var(--t-lg); }
-.cloud-item:nth-child(5n+2) { font-size: var(--t-xs); }
-.cloud-item:nth-child(5n+3) { font-size: var(--t-md); }
-.cloud-item:nth-child(5n+4) { font-size: var(--t-sm); }
-.cloud-item:nth-child(5n+5) { font-size: var(--t-xl); }
-
-/* Rotation tiers */
-.cloud-item:nth-child(7n+1) { --tilt: -3deg; }
-.cloud-item:nth-child(7n+2) { --tilt: 2deg; }
-.cloud-item:nth-child(7n+3) { --tilt: -1deg; }
-.cloud-item:nth-child(7n+4) { --tilt: 3.5deg; }
-.cloud-item:nth-child(7n+5) { --tilt: -2.5deg; }
-.cloud-item:nth-child(7n+6) { --tilt: 1.5deg; }
-.cloud-item:nth-child(7n+7) { --tilt: -4deg; }
-
-/* Tech-stack items carry group ink... */
-.cloud-item[data-ink="blue"] { color: var(--blue-deep); }
-.cloud-item[data-ink="coral"] { color: var(--coral-deep); }
-.cloud-item[data-ink="matcha"] { color: var(--matcha-deep); }
-
-/* ...and status, the same way .skill-item does. */
-.cloud-item[data-status="next"] {
-    color: var(--ink-faint);
-    font-weight: 500;
-}
-
-.cloud-item[data-status="learning"] {
-    text-decoration: underline dashed;
-    text-decoration-color: var(--rule-strong);
-    text-underline-offset: 3px;
-}
-
-.cloud-item:hover {
-    transform: rotate(0deg) scale(1.08);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cloud-item {
-        transition: color var(--dur) var(--ease);
-    }
-    .cloud-item:hover {
-        transform: rotate(var(--tilt, 0deg));
-    }
 }

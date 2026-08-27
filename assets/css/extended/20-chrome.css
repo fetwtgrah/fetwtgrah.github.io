@@ -6,14 +6,26 @@
    script and the language menu.
    ============================================================ */
 
+/* --- 刊眉 The running head ----------------------------------
+   Flat paper, closed at the bottom by the masthead double
+   rule: 3px ink, a breath of paper, then the 1px partner.    */
 .header {
     position: sticky;
     top: 0;
     z-index: 60;
-    background: color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+    border-bottom: 3px solid var(--ink);
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    /* 3px of border + 5px of paper, then the thin partner. */
+    margin-top: 8px;
+    border-top: 1px solid var(--ink);
 }
 
 .header-nav {
@@ -23,35 +35,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--s-5);
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
 }
 
-/* --- Wordmark ---------------------------------------------
-   The name sits in a blue ink block. On hover the block
-   shifts a hair off-register — the press motif, at nav size. */
-/* Fills that carry paper text use the -deep cuts: the bright inks
-   only reach 3.5:1 (blue) and 2.6:1 (coral) against paper. */
+/* --- Wordmark -----------------------------------------------
+   The name set in the display serif, followed by the same
+   cinnabar square full-stop the masthead wears. */
 .logo a {
     font-family: var(--font-display);
     font-size: var(--t-md);
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    color: var(--paper);
-    background: var(--blue-deep);
-    padding: 0.14em 0.5em 0.2em;
-    border-radius: var(--r-sm);
-    display: inline-block;
-    transition: transform var(--dur) var(--ease),
-                background-color var(--dur) var(--ease);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.18em;
+    transition: color var(--dur) var(--ease);
+}
+
+.logo a::after {
+    content: "";
+    width: 0.28em;
+    height: 0.28em;
+    flex: 0 0 auto;
+    background: var(--cinnabar);
 }
 
 .logo a:hover {
-    background: var(--coral-deep);
-    transform: translate(-1.5px, -1.5px);
-}
-
-[data-theme="dark"] .logo a {
-    color: var(--paper);
+    color: var(--cinnabar-deep);
 }
 
 .logo-switches {
@@ -69,13 +81,13 @@
 }
 
 .theme-toggle:hover {
-    color: var(--coral-deep);
-    background: var(--coral-wash);
+    color: var(--cinnabar-deep);
+    background: var(--cinnabar-wash);
 }
 
-/* --- Menu -------------------------------------------------
-   Current page is marked with a coral rule under the label:
-   the ink stroke you'd draw next to where you are. */
+/* --- Menu ---------------------------------------------------
+   Current page carries the cinnabar underline: the mark an
+   editor makes next to where you are. */
 #menu {
     display: flex;
     align-items: center;
@@ -94,36 +106,34 @@
 #menu a {
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: var(--track-label);
     text-transform: uppercase;
     color: var(--ink-soft);
     padding: 0.5em 0.7em;
     border-radius: var(--r-sm);
     display: inline-block;
-    transition: color var(--dur) var(--ease),
-                background-color var(--dur) var(--ease);
+    transition: color var(--dur) var(--ease);
 }
 
 #menu a:hover {
     color: var(--ink);
-    background: color-mix(in srgb, var(--blue) 14%, transparent);
 }
 
 #menu a span.active {
     color: var(--ink);
-    border-bottom: 2.5px solid var(--coral);
+    border-bottom: 2px solid var(--cinnabar);
     padding-bottom: 3px;
 }
 
-/* --- Footer -----------------------------------------------
+/* --- Footer -------------------------------------------------
    Theme markup is a flat run of spans separated by "·", so
-   center it and let it recede. Nothing here competes. */
+   center it and let it recede — the colophon of the issue.   */
 .footer {
     max-width: var(--shell);
     margin: var(--s-9) auto 0;
     padding: var(--s-6) var(--shell-pad) var(--s-7);
-    border-top: 2px solid var(--rule);
+    border-top: 1px solid var(--rule);
     font-family: var(--font-label);
     font-size: var(--t-xs);
     line-height: 1.9;
@@ -140,23 +150,27 @@
 }
 
 .footer a:hover {
-    color: var(--coral-deep);
-    border-bottom-color: var(--coral);
+    color: var(--cinnabar-deep);
+    border-bottom-color: var(--cinnabar);
 }
 
-/* --- Scroll to top ---------------------------------------- */
+/* --- Scroll to top ------------------------------------------ */
 .top-link {
-    background: var(--blue-deep);
-    color: var(--paper);
+    background: var(--paper);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
     border-radius: var(--r-sm);
-    border: 2px solid var(--ink);
     padding: 10px 8px;
     transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease),
                 transform var(--dur) var(--ease);
 }
 
 .top-link:hover {
-    background: var(--coral-deep);
+    background: var(--cinnabar);
+    border-color: var(--cinnabar);
+    color: var(--paper);
     transform: translateY(-2px);
 }
 
@@ -166,11 +180,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .logo a,
     .top-link {
-        transition: background-color var(--dur) var(--ease);
+        transition: background-color var(--dur) var(--ease),
+                    border-color var(--dur) var(--ease),
+                    color var(--dur) var(--ease);
     }
-    .logo a:hover,
     .top-link:hover {
         transform: none;
     }

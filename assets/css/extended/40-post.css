@@ -7,6 +7,9 @@
    names (verified against themes/PaperMod/layouts/) rather than
    by a blanket .main > * rule that would fight the homepage's
    own .shell containers.
+
+   Editorial reading pages: hairline-separated list rows, a
+   boxed contents card, and a drop cap opening the article.
    ============================================================ */
 
 :root {
@@ -40,12 +43,18 @@
 
 .page-header h1 {
     font-size: var(--t-2xl);
+    font-weight: 900;
     margin: 0;
 }
 
+/* The square full-stop, at section-title size. */
 .page-header h1::after {
-    content: ".";
-    color: var(--coral);
+    content: "";
+    display: inline-block;
+    width: 0.18em;
+    height: 0.18em;
+    margin-left: 0.18em;
+    background: var(--cinnabar);
 }
 
 .post-description {
@@ -63,73 +72,42 @@
 }
 
 /* ============================================================
-   LIST ENTRIES
-
-   The theme lays a transparent .entry-link over the whole card,
-   so hover styling has to hang off the article, not a link.
+   LIST ENTRIES — column rows, not cards. A hairline between
+   entries; the headline going red is the whole hover state.
+   The theme lays a transparent .entry-link over the whole row,
+   so hover styling hangs off the article, not a link.
    ============================================================ */
 
 .post-entry,
 .first-entry {
     position: relative;
-    margin-bottom: var(--s-5);
-    padding-block: var(--s-5);
+    margin-bottom: 0;
+    padding-block: var(--s-6);
     background: none;
     border: 0;
+    border-bottom: 1px solid var(--rule);
     box-shadow: none;
-    transition: transform var(--dur) var(--ease);
-}
-
-/* Inner sheet, inset by the gutter so the ink frame lines up
-   with the measure instead of the viewport. */
-.post-entry::before,
-.first-entry::before {
-    content: "";
-    position: absolute;
-    inset: 0 var(--shell-pad);
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
-    box-shadow: var(--cast);
-    transition: box-shadow var(--dur) var(--ease);
-    z-index: 0;
-}
-
-.post-entry:hover {
-    transform: translate(-2px, -2px);
-}
-
-.post-entry:hover::before,
-.first-entry:hover::before {
-    box-shadow: var(--cast-blue);
-}
-
-.post-entry .entry-header,
-.post-entry .entry-content,
-.post-entry .entry-footer,
-.first-entry .entry-header,
-.first-entry .entry-content,
-.first-entry .entry-footer {
-    position: relative;
-    z-index: 1;
-    padding-inline: var(--s-6);
 }
 
 .entry-header h2 {
     font-size: var(--t-lg);
+    font-weight: 700;
     line-height: var(--lh-snug);
     margin: 0;
+    transition: color var(--dur) var(--ease);
 }
 
-.post-entry:hover .entry-header h2 {
-    color: var(--blue-deep);
+.post-entry:hover .entry-header h2,
+.first-entry:hover .entry-header h2 {
+    color: var(--cinnabar-deep);
 }
 
 .entry-content {
     margin: var(--s-3) 0 0;
     color: var(--ink-soft);
     font-size: var(--t-sm);
-    line-height: 1.75;
+    line-height: 1.8;
+    max-width: 68ch;
 }
 
 .entry-content p {
@@ -137,33 +115,23 @@
 }
 
 .entry-footer {
-    margin-top: var(--s-4);
+    margin-top: var(--s-3);
     font-family: var(--font-label);
     font-size: var(--t-xs);
     letter-spacing: 0.05em;
     color: var(--ink-faint);
 }
 
-.entry-cover {
-    padding-inline: var(--s-6);
-    position: relative;
-    z-index: 1;
+.entry-cover img {
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-sm);
 }
 
-/* The theme's whole-card click layer carries no z-index, so the
-   z-index:1 content above would swallow clicks on the title.
-   Lift it over the content and inset it to match the ink frame. */
+/* The theme's whole-row click layer sits under nothing now
+   that the card frame is gone — just keep it above the text. */
 .post-entry .entry-link,
 .first-entry .entry-link {
-    inset: 0 var(--shell-pad);
-    left: var(--shell-pad);
-    right: var(--shell-pad);
-    z-index: 2;
-}
-
-.entry-cover img {
-    border: 2px solid var(--ink);
-    border-radius: var(--r-sm);
+    z-index: 1;
 }
 
 /* ============================================================
@@ -181,10 +149,11 @@
 }
 
 .post-title {
-    font-size: clamp(1.9rem, 5vw, var(--t-3xl));
-    line-height: 1.1;
+    font-size: clamp(2rem, 5vw, var(--t-3xl));
+    font-weight: 900;
+    line-height: 1.15;
     margin: 0;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .post-meta {
@@ -196,27 +165,26 @@
 }
 
 .post-meta a {
-    color: var(--blue-deep);
+    color: var(--cinnabar-deep);
 }
 
-/* --- TOC --------------------------------------------------
-   A tacked-on index card, tipped half a degree. */
+/* --- Contents card -------------------------------------------
+   Squared and flat — the issue's contents box, not a prop.   */
 .toc {
-    background: var(--blue-wash);
-    border: 2px solid var(--blue);
-    border-radius: var(--r-md);
+    background: var(--paper-2);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-sm);
     margin-bottom: var(--s-7);
     padding: var(--s-4) var(--s-5);
-    transform: rotate(-0.35deg);
 }
 
 .toc details summary {
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: var(--track-label);
     text-transform: uppercase;
-    color: var(--blue-deep);
+    color: var(--ink-soft);
     cursor: pointer;
 }
 
@@ -238,10 +206,13 @@
 }
 
 .toc a:hover {
-    color: var(--coral-deep);
+    color: var(--cinnabar-deep);
 }
 
-/* --- Prose ------------------------------------------------ */
+/* --- Prose --------------------------------------------------
+   Serif body at a book's line-height; the article opens with
+   a cinnabar drop cap. (Direct-child selector, so the nested
+   markup on the About page never gets one.) */
 .post-content {
     font-size: var(--t-base);
     line-height: var(--lh-body);
@@ -249,6 +220,16 @@
 
 .post-content > * + * {
     margin-top: var(--s-5);
+}
+
+.post-single .post-content > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 3.2em;
+    line-height: 0.95;
+    float: left;
+    padding: 0.06em 0.16em 0 0;
+    color: var(--cinnabar);
 }
 
 .post-content h1,
@@ -263,7 +244,7 @@
 .post-content h2 {
     font-size: var(--t-xl);
     padding-bottom: var(--s-2);
-    border-bottom: 2px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
 }
 
 .post-content h3 {
@@ -276,7 +257,7 @@
 
 /* Anchor links the theme injects next to headings. */
 .post-content .anchor {
-    color: var(--blue);
+    color: var(--cinnabar);
     text-decoration: none;
     font-weight: 400;
 }
@@ -291,7 +272,7 @@
 }
 
 .post-content li::marker {
-    color: var(--coral);
+    color: var(--cinnabar);
 }
 
 .post-content strong {
@@ -299,12 +280,12 @@
     color: var(--ink);
 }
 
-/* --- Blockquote ------------------------------------------
-   Coral rule down the side, no quote-mark ornament. */
+/* --- Blockquote ----------------------------------------------
+   A cinnabar rule down the side, no ornament. */
 .post-content blockquote {
     margin-inline: 0;
     padding: var(--s-2) 0 var(--s-2) var(--s-5);
-    border-inline-start: 4px solid var(--coral);
+    border-inline-start: 3px solid var(--cinnabar);
     background: none;
     color: var(--ink-soft);
     font-style: normal;
@@ -314,17 +295,19 @@
     margin: 0;
 }
 
+/* Horizontal rule: the masthead double, at article width. */
 .post-content hr {
-    height: 3px;
+    height: 7px;
     border: 0;
-    background: var(--rule);
     margin-block: var(--s-8);
+    background:
+        linear-gradient(var(--rule-strong), var(--rule-strong)) left top / 100% 3px no-repeat,
+        linear-gradient(var(--rule-strong), var(--rule-strong)) left bottom / 100% 1px no-repeat;
 }
 
 .post-content img {
-    border: 2px solid var(--ink);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
-    box-shadow: var(--cast);
 }
 
 .post-content figcaption {
@@ -336,7 +319,7 @@
     text-align: center;
 }
 
-/* --- Tables ---------------------------------------------- */
+/* --- Tables ------------------------------------------------- */
 .post-content table {
     border-collapse: collapse;
     width: 100%;
@@ -344,27 +327,27 @@
 }
 
 .post-content th {
-    background: var(--blue-wash);
+    background: var(--paper-2);
     font-family: var(--font-label);
     font-size: var(--t-xs);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-align: start;
-    color: var(--blue-deep);
+    color: var(--ink-soft);
 }
 
 .post-content th,
 .post-content td {
-    border: 1.5px solid var(--rule);
+    border: 1px solid var(--rule);
     padding: var(--s-3) var(--s-4);
 }
 
-/* --- Code ------------------------------------------------ */
+/* --- Code --------------------------------------------------- */
 .post-content code {
     font-family: var(--font-code);
     font-size: 0.875em;
     background: var(--code-bg);
-    color: var(--coral-deep);
+    color: var(--cinnabar-deep);
     padding: 0.15em 0.4em;
     border-radius: var(--r-sm);
     border: 1px solid var(--rule);
@@ -372,7 +355,6 @@
 
 .post-content pre {
     background: var(--code-block-bg) !important;
-    border: 2px solid var(--ink);
     border-radius: var(--r-md);
     padding: var(--s-5);
     overflow-x: auto;
@@ -398,21 +380,21 @@
     font-size: 0.6875rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    background: var(--blue-deep);
+    background: var(--ink);
     color: var(--paper);
     border-radius: var(--r-sm);
     padding: 0.35em 0.6em;
 }
 
 .post-content .copy-code:hover {
-    background: var(--coral-deep);
+    background: var(--cinnabar);
 }
 
-/* --- Footer, tags, nav ----------------------------------- */
+/* --- Footer, tags, nav --------------------------------------- */
 .post-footer {
     margin-top: var(--s-8);
     padding-top: var(--s-5);
-    border-top: 3px solid var(--ink);
+    border-top: 1px solid var(--rule);
 }
 
 .post-tags {
@@ -431,8 +413,7 @@
     font-family: var(--font-label);
     font-size: var(--t-xs);
     letter-spacing: 0.06em;
-    background: var(--paper-2);
-    border: 1.5px solid var(--rule-strong);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
     padding: 0.4em 0.7em;
     color: var(--ink-soft);
@@ -441,8 +422,8 @@
 }
 
 .post-tags a:hover {
-    border-color: var(--coral);
-    color: var(--coral-deep);
+    border-color: var(--cinnabar);
+    color: var(--cinnabar-deep);
 }
 
 .paginav {
@@ -453,15 +434,14 @@
 }
 
 .paginav a {
-    background: var(--entry);
-    border: 2px solid var(--ink);
-    border-radius: var(--r-md);
+    border: 1px solid var(--rule-strong);
+    border-radius: var(--r-sm);
     padding: var(--s-4) var(--s-5);
-    transition: box-shadow var(--dur) var(--ease);
+    transition: border-color var(--dur) var(--ease);
 }
 
 .paginav a:hover {
-    box-shadow: var(--cast);
+    border-color: var(--ink);
 }
 
 .paginav .title {
@@ -480,7 +460,7 @@
     content: " →";
 }
 
-/* --- Pagination ------------------------------------------ */
+/* --- Pagination ---------------------------------------------- */
 .pagination {
     display: flex;
     justify-content: center;
@@ -491,23 +471,24 @@
 .pagination a {
     font-family: var(--font-label);
     font-size: var(--t-xs);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    border: 2px solid var(--ink);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
     padding: 0.6em 1em;
-    background: var(--entry);
     transition: background-color var(--dur) var(--ease),
+                border-color var(--dur) var(--ease),
                 color var(--dur) var(--ease);
 }
 
 .pagination a:hover {
-    background: var(--blue-deep);
+    background: var(--ink);
+    border-color: var(--ink);
     color: var(--paper);
 }
 
-/* --- Tag index ------------------------------------------- */
+/* --- Tag index ------------------------------------------------ */
 .terms-tags {
     padding-block: var(--s-6) var(--s-8);
     display: flex;
@@ -518,26 +499,14 @@
 .terms-tags a {
     font-family: var(--font-label);
     font-size: var(--t-sm);
-    background: var(--entry);
-    border: 2px solid var(--ink);
+    border: 1px solid var(--rule-strong);
     border-radius: var(--r-sm);
     padding: 0.5em 0.9em;
-    box-shadow: var(--cast);
-    transition: transform var(--dur) var(--ease);
+    transition: border-color var(--dur) var(--ease),
+                color var(--dur) var(--ease);
 }
 
 .terms-tags a:hover {
-    transform: translate(-2px, -2px);
-    background: var(--coral-wash);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .post-entry,
-    .terms-tags a {
-        transition: none;
-    }
-    .post-entry:hover,
-    .terms-tags a:hover {
-        transform: none;
-    }
+    border-color: var(--cinnabar);
+    color: var(--cinnabar-deep);
 }
