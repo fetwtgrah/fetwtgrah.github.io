@@ -1,0 +1,16 @@
+# Hobbyverse 节点由这个文件统一管理。
+# 图片请放进 static/hobbyverse/，然后使用 /hobbyverse/文件名。
+#
+# 示例：
+# items:
+#   - id: frieren
+#     title: 葬送的芙莉莲
+#     kind: Anime
+#     note: 一段关于时间、记忆与理解的旅程。
+#     image: /hobbyverse/frieren.jpg
+#     x: 3320
+#     y: 2250
+#
+# x 和 y 可以省略，页面会自动排列。画布中心约为 x: 3000, y: 2500。
+
+items: []
