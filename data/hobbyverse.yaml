@@ -1,16 +1,18 @@
-# Hobbyverse 节点由这个文件统一管理。
-# 图片请放进 static/hobbyverse/，然后使用 /hobbyverse/文件名。
-#
-# 示例：
-# items:
-#   - id: frieren
-#     title: 葬送的芙莉莲
-#     kind: Anime
-#     note: 一段关于时间、记忆与理解的旅程。
-#     image: /hobbyverse/frieren.jpg
-#     x: 3320
-#     y: 2250
-#
-# x 和 y 可以省略，页面会自动排列。画布中心约为 x: 3000, y: 2500。
+# 存放records
+items:
+  - id: hamilton
+    title: 汉密尔顿
+    kind: Musical
+    note: 好听，好看爽爽爽！
+    image: \hobbyverse\汉密尔顿.png
+  - id: howtofish
+    title: 渔力全开
+    kind: Game
+    note: 本质钓鱼赌博甩狙坑好友游戏
+    image: \hobbyverse\how to fish.png
+  - id: 
+    title: Witness
+    kind: Movie
+    note: 阿婆的剧本毋庸置疑
+    image: \hobbyverse\控方证人.png
 
-items: []
