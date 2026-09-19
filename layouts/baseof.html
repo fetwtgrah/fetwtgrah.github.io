@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Description | default site.Params.description }}">
+    <title>{{ if .IsHome }}Fresh{{ else }}{{ .Title }} · Fresh{{ end }}</title>
+    <link rel="icon" type="image/png" href="{{ "avatar.png" | relURL }}">
+    {{ $style := resources.Get "css/site.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    {{ if .IsHome }}<script type="module" src="{{ "js/home.js" | relURL }}"></script>{{ end }}
+    <script>
+      const savedTheme = localStorage.getItem("fresh-theme");
+      if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+    </script>
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+    <main>{{ block "main" . }}{{ end }}</main>
+    {{ partial "footer.html" . }}
+    <script>
+      const themeButton = document.querySelector(".theme-toggle");
+      themeButton?.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = nextTheme;
+        localStorage.setItem("fresh-theme", nextTheme);
+      });
+    </script>
+  </body>
+</html>

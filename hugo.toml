@@ -1,78 +1,24 @@
 baseURL = "https://fetwtgrah.github.io/"
 locale = "zh-cn"
-title = "Fresh的博客"
-
-theme = "PaperMod"
-
-# Longer .Summary so the cover story on the homepage has something to show.
-summaryLength = 40
-
-# Custom styles live in assets/css/extended/ — PaperMod concatenates every
-# .css file there in path order, hence the 00- … 60- prefixes.
+title = "Fresh"
 
 [markup.goldmark.renderer]
   unsafe = true
 
-[menu]
-
-[[menu.main]]
-name = "Home"
-url = "/"
-weight = 1
-
-[[menu.main]]
-name = "Posts"
-url = "/posts/"
-weight = 2
-
-[[menu.main]]
-name = "Projects"
-url = "/projects/"
-weight = 3
-
-[[menu.main]]
-name = "About"
-url = "/about/"
-weight = 4
-
 [params]
-  defaultTheme = "auto"
-  disableThemeToggle = false
+  description = "Fresh 的个人主页与技术文章。"
 
-  # Dateline text, top-left of the homepage masthead (the date on the
-  # right is the build month). Read by layouts/index.html.
-  heroEyebrow = "Developer notebook"
+[[menus.main]]
+  name = "主页"
+  pageRef = "/"
+  weight = 1
 
-  # Post display
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowCodeCopyButtons = true
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  mainSections = ["posts"]
-  ShowWordCount = true
-  ShowToc = true
+[[menus.main]]
+  name = "文章"
+  pageRef = "/posts/"
+  weight = 2
 
-  # Social
-  socialIcons = [
-    { name = "github", url = "https://github.com/fetwtgrah" },
-  ]
-
-  # Label / Logo — serif wordmark followed by the cinnabar square
-  # full-stop (20-chrome.css). Plain name, no prefix.
-  [params.label]
-    text = "Fresh"
-
-  # Footer
-  [params.footer]
-    hideCopyright = false
-    text = "built with Hugo · deployed on GitHub Pages"
-
-# Masthead copy. Title sets the display name, Subtitle the serif role
-# line, Content the short bio under it.
-[params.homeInfoParams]
-  Title = "Fresh"
-  Subtitle = "HUST软件工程在读 · 后端/全栈方向"
-  Content = """
-  正在涨经验中...
-  """
+[[menus.main]]
+  name = "关于"
+  pageRef = "/about/"
+  weight = 3

@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="list-page">
+  <header class="page-hero">
+    <p class="eyebrow">Fresh · posts</p>
+    <h1>文章</h1>
+    <p>记录学习过程，整理技术笔记，也保存一些还没有答案的问题。</p>
+  </header>
+  <section class="post-list" aria-label="文章列表">
+    {{ range $index, $page := .Pages.ByDate.Reverse }}
+    <a class="post-card card reveal" style="--delay: {{ mul $index 70 }}ms" href="{{ $page.RelPermalink }}">
+      <div class="post-number">{{ printf "%02d" (add $index 1) }}</div>
+      <div class="post-main">
+        <div class="post-meta"><span>{{ $page.Date.Format "2006.01.02" }}</span>{{ with $page.Params.tags }}<span>{{ delimit . " · " }}</span>{{ end }}</div>
+        <h2>{{ $page.Title }}</h2>
+        <p>{{ $page.Description | default $page.Summary | plainify | truncate 130 }}</p>
+      </div>
+      <span class="post-arrow">↗</span>
+    </a>
+    {{ end }}
+  </section>
+</div>
+{{ end }}

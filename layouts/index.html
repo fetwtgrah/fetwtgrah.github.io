@@ -1,287 +1,44 @@
-{{- /* Homepage — takes over from the theme's list.html.
-
-   Hugo resolves layouts/index.html ahead of the theme's list.html for
-   the home page, so the home_info + paginator structure is bypassed
-   entirely. themes/PaperMod is untouched.
-
-   The page reads as the cover and contents of a one-person magazine:
-   masthead · 卷首语(about) · 专栏(notes) · 专题(projects)
-   · 名录(skills) · 纪事(timeline)
-*/ -}}
 {{ define "main" }}
-
-{{- /* ─────────────────────────────────────────────────────────
-   MASTHEAD — the cover
-
-   Dateline across the top, the name in 900-weight serif with a
-   cinnabar square full-stop, and the portrait printed as a
-   captioned figure. The thick-over-thin double rules frame the
-   block the way a newspaper's nameplate is framed.
-   ───────────────────────────────────────────────────────── */ -}}
-{{- with site.Params.homeInfoParams }}
-<section class="masthead">
-  <div class="shell">
-
-    <p class="dateline">
-      <span>{{ $.Site.Params.heroEyebrow | default "Developer notebook" }}</span>
-      <span>武汉 · {{ now.Format "2006年1月" }}</span>
-    </p>
-
-    <div class="rule-double" aria-hidden="true"></div>
-
-    <div class="masthead-body">
-      <div class="masthead-text">
-        <h1 class="masthead-name">{{ .Title | markdownify }}</h1>
-
-        <p class="masthead-role">{{ .Subtitle | markdownify }}</p>
-
-        <div class="masthead-bio">{{ .Content | markdownify }}</div>
-
-        <div class="masthead-now">
-          <span class="masthead-now-label">
-            <span class="status-pip" data-status="now" aria-hidden="true"></span>
-            正在学
-          </span>
-          <span class="masthead-now-list">Gin 分层实践 · PostgreSQL 执行计划</span>
-        </div>
-
-        <div class="masthead-actions">
-          <a class="btn" href="{{ "posts/" | absLangURL }}">读我的笔记</a>
-          {{- range site.Params.socialIcons }}
-          {{- if eq .name "github" }}
-          <a class="btn is-ghost" href="{{ .url }}" target="_blank" rel="noopener me">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C16.3 5 17.3 5.3 17.3 5.3c.6 1.5.2 2.7.1 3a4.6 4.6 0 0 1 1.2 3.2c0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/>
-            </svg>
-            GitHub
-          </a>
-          {{- end }}
-          {{- end }}
+<div class="home-page home-dashboard">
+  <section class="dashboard-hero">
+    <div class="dashboard-copy">
+      <p class="eyebrow">Software engineering · 2026</p>
+      <div class="title-avatar-row">
+        <h1 class="home-title">新鲜-冰箱-<span>空调</span></h1>
+        <div class="hero-avatar home-avatar">
+          <img src="{{ "avatar.png" | relURL }}" alt="Fresh 的社媒头像">
         </div>
       </div>
-
-      <figure class="masthead-figure">
-        {{- $avatar := resources.Get "avatar.jpg" }}
-        {{- if $avatar }}
-        {{- $img := $avatar.Fill "440x440 Center q88" }}
-        <div class="figure-frame">
-          <img class="figure-img" src="{{ $img.RelPermalink }}"
-               width="{{ $img.Width }}" height="{{ $img.Height }}"
-               alt="{{ .Title | plainify }} 的头像" />
-        </div>
-        {{- else }}
-        <div class="figure-frame">
-          <span class="figure-fallback" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                 stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </span>
-        </div>
-        {{- end }}
-        <figcaption><span>图 1</span><span>作者近照</span></figcaption>
-      </figure>
+      <p class="hero-subtitle">一个正在学习后端、构建项目，也在慢慢找到自己方向的学生。</p>
+      <div class="hero-links">
+        <a href="{{ "posts/" | relURL }}">文章 <span>↗</span></a>
+        <a href="{{ "about/" | relURL }}">关于 <span>↗</span></a>
+      </div>
     </div>
+  </section>
 
-    <div class="rule-double is-flip" aria-hidden="true"></div>
-
-  </div>
-</section>
-{{- end }}
-
-{{- /* ─────────────────────────────────────────────────────────
-   卷首语 ABOUT — the editor's note, opened with a drop cap.
-   ───────────────────────────────────────────────────────── */ -}}
-<section class="band shell" id="about">
-  <div class="about-split">
-    <header class="band-head">
-      <p class="kicker">关于<span class="kicker-en">About</span></p>
-      <h2 class="band-title">我在做什么</h2>
-    </header>
-    <div class="about-body">
-      <p>我是 Fresh，软件工程在读，主要写后端。喜欢把一个东西拆到能看懂每一层为止 —— 从一条 SQL 怎么被执行，到一个请求怎么穿过中间件。</p>
-      <p>这个博客作为一个作品集橱窗👀 ps:希望能写出成熟的作品</p>
-      <a class="arrow-link" href="{{ "about/" | absLangURL }}">完整介绍</a>
-    </div>
-  </div>
-</section>
-
-{{- /* ─────────────────────────────────────────────────────────
-   专栏 NOTES — the contents page.
-
-   The latest note is the cover story; the rest run as a table
-   of contents — title to date across a dotted leader, the way
-   a magazine actually lists what is inside.
-   ───────────────────────────────────────────────────────── */ -}}
-{{- $posts := where site.RegularPages "Type" "in" site.Params.mainSections }}
-{{- if $posts }}
-<section class="band shell" id="notes">
-  <header class="band-head">
-    <p class="kicker">专栏<span class="kicker-en">Notes</span></p>
-    <h2 class="band-title">最近写的</h2>
-    <p class="band-note">共 {{ len $posts }} 篇，还在加。</p>
-  </header>
-
-  {{- range first 1 $posts }}
-  <article class="cover-story">
-    <p class="cover-kicker">封面故事 · Cover story</p>
-    <h3 class="cover-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-    <p class="cover-meta">
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
-      {{- if .ReadingTime }}<span class="meta-dot">·</span>{{ .ReadingTime }} 分钟{{ end }}
-    </p>
-    {{- with .Summary }}
-    <p class="cover-excerpt">{{ . | plainify | truncate 150 }}</p>
-    {{- end }}
-    {{- with .Params.tags }}
-    <div class="cover-tags">
-      {{- range first 4 . }}
-      <a class="chip" href="{{ (urlize (printf "tags/%s" .)) | absLangURL }}">{{ . }}</a>
-      {{- end }}
-    </div>
-    {{- end }}
-  </article>
-  {{- end }}
-
-  {{- $rest := after 1 $posts }}
-  {{- if $rest }}
-  <div class="toc-list">
-    {{- range first 4 $rest }}
-    <article class="toc-row">
-      <h3 class="toc-row-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-      <span class="toc-leader" aria-hidden="true"></span>
-      <time class="toc-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+  <section class="home-card-grid" aria-label="个人信息">
+    <article class="home-note-card focus-card" data-home-card tabindex="0">
+      <p class="note-label">正在学习</p>
+      <div class="focus-card-content">
+        <h2>Go Backend<br><span>&amp; DevOps</span></h2>
+        <p class="note-detail">Gin · PostgreSQL · Docker · Linux</p>
+      </div>
+      <span class="card-corner" aria-hidden="true">↗</span>
     </article>
-    {{- end }}
-  </div>
-  {{- end }}
-
-  <p class="band-more">
-    <a class="arrow-link" href="{{ "posts/" | absLangURL }}">全部笔记</a>
-  </p>
-</section>
-{{- end }}
-
-{{- /* ─────────────────────────────────────────────────────────
-   专题 PROJECTS — data/projects.yaml
-   Feature stories: a thick top rule, the state as a kicker,
-   serif headline, plain hairline tags.
-   ───────────────────────────────────────────────────────── */ -}}
-{{- with hugo.Data.projects }}
-<section class="band shell" id="projects">
-  <header class="band-head">
-    <p class="kicker">专题<span class="kicker-en">Projects</span></p>
-    <h2 class="band-title">我做过的东西</h2>
-  </header>
-
-  <div class="feature-grid">
-    {{- range $i, $p := . }}
-    <article class="feature">
-      <p class="feature-status">
-        {{- with $p.status }}
-        <span class="status-pip" data-status="{{ if eq . "completed" }}done{{ else }}now{{ end }}" aria-hidden="true"></span>
-        {{ if eq . "completed" }}已完成{{ else }}进行中{{ end }}
-        {{- end }}
-      </p>
-
-      <h3 class="feature-name">{{ $p.name }}</h3>
-
-      <p class="feature-desc">{{ $p.description }}</p>
-
-      {{- with $p.role }}
-      <p class="feature-role"><span class="role-label">我负责</span>{{ . }}</p>
-      {{- end }}
-
-      <div class="feature-tech">
-        {{- range $p.tech }}<span class="chip">{{ . }}</span>{{ end }}
-      </div>
-
-      {{- with $p.github }}
-      <a class="arrow-link feature-link" href="{{ . }}" target="_blank" rel="noopener">
-        看源码
+    <div class="home-card-row">
+      <article class="home-note-card motto-card" data-home-card tabindex="0">
+        <p class="note-label">座右铭</p>
+        <blockquote>“Stay hungry, stay foolish.”</blockquote>
+        <cite>— Steve Jobs</cite>
+      </article>
+      <a class="home-note-card now-card" data-home-card href="{{ "anime-games/" | relURL }}" aria-label="打开 Hobbyverse">
+        <p class="note-label">Hobby + Universe</p>
+        <h2>Hobbyverse</h2>
+        <p class="note-detail">留一点时间给故事、角色和游戏世界。</p>
+        <span class="note-mark" aria-hidden="true">✦</span>
       </a>
-      {{- end }}
-    </article>
-    {{- end }}
-  </div>
-
-  <p class="band-more">
-    <a class="arrow-link" href="{{ "projects/" | absLangURL }}">全部项目</a>
-  </p>
-</section>
-{{- end }}
-
-{{- /* ─────────────────────────────────────────────────────────
-   名录 SKILLS — data/skills.yaml
-
-   The contributors page: three ruled columns, status labels
-   instead of progress bars — a percentage would be invented,
-   "在用 / 在学 / 想学" is checkable.
-   ───────────────────────────────────────────────────────── */ -}}
-{{- with hugo.Data.skills }}
-<section class="band shell" id="skills">
-  <header class="band-head">
-    <p class="kicker">名录<span class="kicker-en">Skills</span></p>
-    <h2 class="band-title">手上的工具</h2>
-    <p class="band-note">没有百分比 —— 只标真实状态。</p>
-  </header>
-
-  <div class="skill-grid">
-    {{- range . }}
-    <div class="skill-col">
-      <h3 class="skill-group">{{ .group }}</h3>
-      {{- with .note }}<p class="skill-note">{{ . }}</p>{{ end }}
-      <ul class="skill-list">
-        {{- range .items }}
-        <li class="skill-item" data-status="{{ .status }}">
-          <span class="status-pip" data-status="{{ .status }}" aria-hidden="true"></span>
-          <span class="skill-name">{{ .name }}</span>
-          <span class="skill-state">
-            {{- if eq .status "using" }}在用
-            {{- else if eq .status "learning" }}在学
-            {{- else }}想学{{ end -}}
-          </span>
-        </li>
-        {{- end }}
-      </ul>
     </div>
-    {{- end }}
-  </div>
-</section>
-{{- end }}
-
-{{- /* ─────────────────────────────────────────────────────────
-   纪事 TIMELINE — data/timeline.yaml
-   A chronicle: the hairline track carries the sequence, the
-   square pip carries the state — the part worth reading.
-   ───────────────────────────────────────────────────────── */ -}}
-{{- with hugo.Data.timeline }}
-<section class="band shell" id="path">
-  <header class="band-head">
-    <p class="kicker">纪事<span class="kicker-en">Timeline</span></p>
-    <h2 class="band-title">走到哪了</h2>
-  </header>
-
-  <ol class="path">
-    {{- range . }}
-    <li class="path-step" data-status="{{ .status }}">
-      <span class="path-pip" aria-hidden="true"></span>
-      <div class="path-body">
-        <h3 class="path-title">
-          {{ .title }}
-          <span class="path-state">
-            {{- if eq .status "done" }}已完成
-            {{- else if eq .status "now" }}进行中
-            {{- else }}计划中{{ end -}}
-          </span>
-        </h3>
-        <p class="path-desc">{{ .desc }}</p>
-      </div>
-    </li>
-    {{- end }}
-  </ol>
-</section>
-{{- end }}
-
+  </section>
+</div>
 {{ end }}

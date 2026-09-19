@@ -1,0 +1,66 @@
+{{ define "main" }}
+<div class="mind-page">
+  <header class="mind-header">
+    <h1>REPO</h1>
+    <p>把喜欢的故事和游戏，留在属于它们的时间坐标上。</p>
+  </header>
+
+  <section class="mind-map" data-mind-map aria-label="Hobbyverse 兴趣地图">
+    <div class="mind-world" data-mind-world>
+      <svg class="mind-lines" data-mind-lines aria-hidden="true"></svg>
+
+      <button class="mind-hub" type="button" data-open-memory>
+        <small>HOBBY + UNIVERSE</small>
+        <strong>Hobbyverse</strong>
+        <span class="mind-hub-action">添加记忆 ＋</span>
+      </button>
+
+      <div class="mind-node-field" data-mind-nodes></div>
+    </div>
+
+    <p class="mind-empty-hint" data-mind-empty>点击中央标签，放入第一段记忆。</p>
+    <div class="mind-canvas-controls" aria-label="画布控制">
+      <button type="button" data-zoom-out aria-label="缩小画布" title="缩小">−</button>
+      <button type="button" data-reset-view aria-label="回到中心" title="回到中心">◎</button>
+      <button type="button" data-zoom-in aria-label="放大画布" title="放大">＋</button>
+    </div>
+  </section>
+</div>
+
+<dialog class="memory-dialog" data-memory-dialog>
+  <form class="memory-composer" data-memory-form>
+    <header>
+      <div>
+        <p class="eyebrow">Place a memory</p>
+        <h2>放入星图</h2>
+      </div>
+      <button type="button" class="memory-close" data-close-memory aria-label="关闭">×</button>
+    </header>
+    <div class="memory-kind-editor">
+      <label class="memory-kind-field">
+        <span>分类标签</span>
+        <input name="kind" required maxlength="20" autocomplete="off" placeholder="输入或创建标签" data-kind-input>
+      </label>
+      <div class="memory-kind-suggestions" data-kind-suggestions aria-label="已有标签"></div>
+    </div>
+    <label class="memory-title-field"><span>它叫什么？</span><input name="title" required maxlength="80" autocomplete="off" placeholder="输入作品名称"></label>
+    <label class="memory-note-field"><span>留一句话</span><textarea name="note" rows="2" maxlength="140" placeholder="为什么想记住它？"></textarea></label>
+    <label class="memory-cover-field">
+      <input type="file" name="image" accept="image/*">
+      <span class="memory-cover-preview" data-cover-preview><b>＋</b><small data-cover-label>添加一张封面</small></span>
+    </label>
+    <p class="memory-form-error" data-memory-error hidden></p>
+    <button class="memory-place-button" type="submit">放入星图 <span>↗</span></button>
+  </form>
+</dialog>
+
+<dialog class="memory-viewer" data-memory-viewer>
+  <article data-memory-detail></article>
+  <div class="memory-viewer-actions">
+    <button type="button" data-delete-memory>移除这段记忆</button>
+    <button type="button" data-close-viewer>返回星图</button>
+  </div>
+</dialog>
+
+<script type="module" src="{{ "js/anime-games.js" | relURL }}"></script>
+{{ end }}

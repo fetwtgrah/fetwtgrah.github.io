@@ -1,0 +1,12 @@
+{{ define "main" }}
+<article class="reading-page">
+  <header class="reading-hero">
+    {{ with .Date }}<div class="post-meta"><span>{{ .Format "2006.01.02" }}</span>{{ end }}{{ with $.Params.tags }}<span>{{ delimit . " · " }}</span>{{ end }}</div>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </header>
+  <div class="reading-card card">
+    <div class="reading-content">{{ .Content }}</div>
+  </div>
+</article>
+{{ end }}
