@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="docs-page">
+  {{ partial "docs-sidebar.html" . }}
+  <article class="docs-article">
+    <header class="docs-article-head">
+      <div class="docs-meta">
+        {{ with .Date }}<time datetime="{{ .Format "2006-01-02" }}">{{ .Format "2006.01.02" }}</time>{{ end }}
+        {{ with .Params.tags }}<span>{{ delimit . " · " }}</span>{{ end }}
+      </div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+    <div class="docs-content">
+      {{ .Content }}
+    </div>
+    <nav class="docs-pagination" aria-label="文章翻页">
+      {{ with .PrevInSection }}<a href="{{ .RelPermalink }}"><span>上一篇</span><strong>{{ .Title }}</strong></a>{{ end }}
+      {{ with .NextInSection }}<a href="{{ .RelPermalink }}"><span>下一篇</span><strong>{{ .Title }}</strong></a>{{ end }}
+    </nav>
+  </article>
+</div>
+{{ end }}

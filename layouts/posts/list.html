@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="docs-page">
+  {{ partial "docs-sidebar.html" . }}
+  <article class="docs-article">
+    <header class="docs-article-head">
+      <p class="eyebrow">Documentation</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+    </header>
+    <div class="docs-content">
+      {{ .Content }}
+    </div>
+  </article>
+</div>
+{{ end }}

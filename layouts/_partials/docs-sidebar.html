@@ -1,0 +1,18 @@
+<aside class="docs-sidebar" aria-label="文章导航">
+  <div class="docs-sidebar-head">
+    <span>Fresh Docs</span>
+    <strong>文档</strong>
+  </div>
+  <nav class="docs-nav">
+    <a class="{{ if and .IsSection (eq .Section "posts") }}is-active{{ end }}" href="{{ "/posts/" | relURL }}">
+      <span>00</span>
+      概览
+    </a>
+    {{ range $index, $page := (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+      <a class="{{ if eq $.RelPermalink $page.RelPermalink }}is-active{{ end }}" href="{{ $page.RelPermalink }}">
+        <span>{{ printf "%02d" (add $index 1) }}</span>
+        {{ $page.Title }}
+      </a>
+    {{ end }}
+  </nav>
+</aside>
