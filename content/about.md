@@ -10,6 +10,7 @@ HUST软工在读，专注于后端技术栈。
 ## 当前方向
 
 - Go Backend 与 Gin
+- Ts和Vue前端组件
 - PostgreSQL、Redis 与数据设计
 - Docker、Linux 与部署
 
