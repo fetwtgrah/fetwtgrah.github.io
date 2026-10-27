@@ -5,14 +5,14 @@ items:
     kind: Musical
     note: 好听，好看爽爽爽！
     image: \hobbyverse\汉密尔顿.png
-  - id: howtofish
-    title: 渔力全开
-    kind: Game
-    note: 本质钓鱼赌博甩狙坑好友游戏
-    image: \hobbyverse\how to fish.png
   - id: 
     title: Witness
     kind: Movie
     note: 阿婆的剧本毋庸置疑
     image: \hobbyverse\控方证人.png
+  - id: 
+    title: the greatest showman
+    kind: Movie
+    note: this is me!
+    image: \hobbyverse\马戏之王.png
 

@@ -1,12 +1,12 @@
 ---
-title: "Ai Agent in Depth（上）"
+title: "Ai Agent in Depth"
 date: 2026-10-19T14:17:44+08:00
 draft: false
 tags: []
-description: "<<ai-agents-in-depth>>"
+description: "阅读<<ai-agents-in-depth>>"
 ---
 
-#### [resource](https://bojieli.github.io/ai-agent-book/astro/)
+#### [书本资料](https://bojieli.github.io/ai-agent-book/astro/)
 
 ## 上下文工程
 
