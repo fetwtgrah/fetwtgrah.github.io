@@ -1,0 +1,25 @@
+{
+  "name": "fresh-blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "post:new": "node scripts/new-post.mjs"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "dependencies": {
+    "astro": "7.4.7",
+    "astro-expressive-code": "0.44.3",
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3"
+  }
+}

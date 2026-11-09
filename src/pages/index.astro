@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { getPosts, tagUrl } from '../lib/posts';
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap(post => post.data.tags))].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+---
+<Base>
+  <section class="intro"><p class="eyebrow">FRESH / NOTES</p><h1>文章与笔记</h1><p>学到的、想到的，慢慢写下来。</p></section>
+  <nav class="tag-filter" aria-label="按标签浏览"><span class="selected">全部 {posts.length}</span>{tags.map(tag => <a href={tagUrl(tag)}>{tag}</a>)}</nav>
+  <PostList posts={posts} />
+</Base>

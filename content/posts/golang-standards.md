@@ -2,10 +2,8 @@
 title: "Golang Standards"
 date: "2026-08-05"
 draft: false
-tags: ["项目规范","git"]
+tags: ["Go", "工程实践"]
 description: "go项目的文件架构标准和git commit的message提交标准"
-ShowToc: true
-TocOpen: false
 ---
 
 # Project-layout

@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, tagUrl } from '../../lib/posts';
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap(post => post.data.tags))].map(tag => ({ name: tag, count: posts.filter(post => post.data.tags.includes(tag)).length })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'zh-CN'));
+---
+<Base title="标签" description="按标签浏览 Fresh 的文章与学习笔记。">
+  <section class="intro"><p class="eyebrow">FRESH / TOPICS</p><h1>标签</h1><p>{tags.length} 个标签，{posts.length} 篇文章。顺着兴趣，慢慢读。</p></section>
+  <div class="tag-grid">{tags.map(tag => <a class="tag-card" href={tagUrl(tag.name)}><h2>#{tag.name}</h2><span>{tag.count} 篇文章 <span aria-hidden="true">↗</span></span></a>)}</div>
+</Base>

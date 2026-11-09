@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import '../styles/cards.css';
+interface Props { title?: string; description?: string; article?: boolean; }
+const { title, description = 'Fresh 的文章与学习笔记。', article = false } = Astro.props;
+const pageTitle = title ? `${title} · Fresh` : 'Fresh · 文章与笔记';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="alternate" type="application/rss+xml" title="Fresh" href="/rss.xml" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:url" content={canonical} />
+    <script is:inline>
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('theme'); } catch {}
+        document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header shell">
+      <a class="wordmark" href="/" aria-label="Fresh 首页"><img src="/avatar.webp" alt="" width="34" height="34" /><span class="brand-name">fresh.</span></a>
+      <nav aria-label="主导航">
+        <a href="/" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>文章</a>
+        <a href="/tags/" aria-current={Astro.url.pathname.startsWith('/tags/') ? 'page' : undefined}>标签</a>
+        <a href="/about/" aria-current={Astro.url.pathname === '/about/' ? 'page' : undefined}>个人简历</a>
+        <a href="https://github.com/fetwtgrah" target="_blank" rel="noopener noreferrer" aria-label="GitHub（新窗口打开）">GitHub ↗</a>
+        <button id="theme-toggle" type="button" aria-label="切换明暗主题" aria-pressed="false">◐</button>
+      </nav>
+    </header>
+    <main id="main" class="shell"><slot /></main>
+    <footer class="site-footer shell"><span>© {new Date().getFullYear()} Fresh</span><a href="/rss.xml">RSS 订阅 ↗</a></footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      const system = matchMedia('(prefers-color-scheme: dark)');
+      const sync = () => button?.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'dark'));
+      sync();
+      let switching = false;
+      button?.addEventListener('click', async () => {
+        if (switching) return;
+        const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        const applyTheme = () => {
+          document.documentElement.dataset.theme = theme;
+          try { localStorage.setItem('theme', theme); } catch {}
+          sync();
+        };
+        if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          applyTheme();
+          return;
+        }
+        const rect = button.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        switching = true;
+        button.disabled = true;
+        document.documentElement.classList.add('theme-reveal');
+        let transition: ViewTransition | undefined;
+        let animation: Animation | undefined;
+        const watchdog = window.setTimeout(() => {
+          animation?.cancel();
+          transition?.skipTransition();
+        }, 1500);
+        try {
+          transition = document.startViewTransition(applyTheme);
+          await transition.ready;
+          animation = document.documentElement.animate(
+            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+            { duration: 420, easing: 'cubic-bezier(.22,.61,.36,1)', pseudoElement: '::view-transition-new(root)' },
+          );
+          await animation.finished;
+        } catch {
+          applyTheme();
+          transition?.skipTransition();
+        } finally {
+          animation?.cancel();
+          await transition?.finished.catch(() => {});
+          window.clearTimeout(watchdog);
+          document.documentElement.classList.remove('theme-reveal');
+          switching = false;
+          button.disabled = false;
+        }
+      });
+      system.addEventListener('change', event => {
+        let saved;
+        try { saved = localStorage.getItem('theme'); } catch {}
+        if (saved === 'light' || saved === 'dark') return;
+        document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+        sync();
+      });
+    </script>
+  </body>
+</html>

@@ -2,10 +2,8 @@
 title: "DTO"
 date: "2026-09-01"
 draft: false
-tags: ["DTO"]
+tags: ["Go", "后端开发"]
 description: "DTO解决数据输入问题"
-ShowToc: true
-TocOpen: false
 ---
 
 # DTO(数据传输对象)
